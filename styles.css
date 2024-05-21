@@ -5,7 +5,7 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: Poppins, sans-serif;
     background-color: #f0f0f0;
 }
 
@@ -65,7 +65,7 @@ nav a {
 .hero {
     position: relative;
     height: 100vh;
-    background: url('your-image-url.jpg') no-repeat center center/cover;
+    background: url('beach.png') no-repeat center center/cover;
 }
 
 .overlay {
@@ -88,24 +88,52 @@ nav a {
 
 .hero h1 {
     font-size: 48px;
+    text-align: right;
     margin-bottom: 20px;
+    font-weight: bold;
 }
 
 .hero p {
     font-size: 24px;
-    margin-bottom: 40px;
+    text-align: right;
+    margin-bottom: 50px;
 }
 
 .booking-form {
+    display: flex;
+    flex-wrap: wrap;
     gap: 20px;
 }
 
 .booking-form .form-group input {
     background: rgba(255, 255, 255, 0.8);
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     padding: 10px;
     color: #333;
+    width: 100%;
+    /* Mengatur lebar input 100% dari kontainer */
+    box-sizing: border-box;
+    /* Memasukkan padding dan border ke dalam lebar dan tinggi total */
+}
+
+.booking-form .form-group.col-md-5 {
+    flex: 0 1 auto;
+    /* Mengatur lebar elemen kiri */
+    max-width: calc(60% - 20px);
+    /* Mengatur lebar maksimum elemen kiri */
+}
+
+.booking-form .form-group.col-md-12,
+.booking-form .form-group.col-md-6 {
+    flex: 1;
+    max-width: calc(50% - 20px);
+    /* Mengatur lebar elemen input */
+}
+
+.booking-form .form-group.col-md-3 {
+    flex: 0 1 auto;
+    /* Mengatur lebar elemen kanan (tombol "Mulai") */
 }
 
 .booking-form .form-group input::placeholder {
@@ -114,13 +142,29 @@ nav a {
 }
 
 .booking-form .form-group {
-    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 100%;
+}
+
+.booking-form .form-group.text-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.booking-form .form-group .form-label {
+    display: block;
+    margin-bottom: 5px;
+    color: #fff;
+    /* Warna teks label */
 }
 
 .btn-warning {
     padding: 15px 30px;
     border: none;
-    border-radius: 5px;
+    border-radius: 20px;
     background-color: #FFA500;
     color: #fff;
     font-size: 16px;
