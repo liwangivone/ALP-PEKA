@@ -31,7 +31,7 @@ public class User {
     private String gender;
 
     @NotEmpty(message = "Username is required")
-    @Column(name = "username", nullable = false)
+    @Column(name = "username", unique = true, nullable = false)
     private String username;
 
     @NotEmpty(message = "Password is required")
