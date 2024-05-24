@@ -1,0 +1,268 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #02B9BD;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-size: cover;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    width: 100%;
+    max-width: 1200px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: transparent;
+}
+
+.btn-outline-primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 100px;
+    padding: 5px 15px;
+    border: 2px solid white;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.btn-outline-primary i {
+    margin-right: 5px;
+}
+
+.btn-outline-primary:hover {
+    background-color: #00A8E8;
+    color: #fff;
+}
+
+.btn-warning {
+    padding: 20px 30px;
+    /* Tambah padding vertikal untuk membuat tombol lebih tinggi */
+    border: none;
+    border-radius: 10px;
+    /* Menambah sedikit radius pada border */
+    background-color: #FFA500;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-warning i {
+    margin-right: 10px;
+    /* Jarak antara ikon dan teks */
+    font-size: 20px;
+}
+
+.btn-warning:hover {
+    background-color: #ff8c00;
+}
+
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .navbar-line {
+        width: 100%;
+    }
+    nav ul.menu {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .auth-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+    .btn-outline-primary,
+    .btn-warning {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        padding: 10px 20px;
+    }
+    nav ul.menu {
+        gap: 5px;
+    }
+}
+
+.right-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.logo {
+    font-weight: bold;
+    color: #00A8E8;
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    width: 150px;
+    height: auto;
+    /* Adjust logo size */
+    margin-right: 10px;
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.menu li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+}
+
+main {
+    width: 120%;
+    max-width: 1300px;
+    padding: 0 10%;
+    margin-top: 150px;
+}
+
+nav {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.navbar-line {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 100px);
+    border: none;
+    border-bottom: 2px solid #fff;
+}
+
+nav ul.menu {
+    list-style: none;
+    display: flex;
+    gap: -10px;
+    margin-left: auto;
+}
+
+nav ul.menu li {
+    list-style: none;
+    margin-right: 30px;
+    margin-top: 20px;
+}
+
+nav ul.menu li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.route-info {
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+    /* Adjust height if needed */
+}
+
+.date-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.date-info .date-item {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    width: 18%;
+    font-size: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.time-info .time-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 18px;
+    width: 100%;
+    height: 100px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+}
+
+.time-info .time-item .time-range {
+    font-weight: bold;
+}
+
+.choose-btn {
+    background-color: #000;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.price-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.choose-btn:hover {
+    background-color: #444;
+}
+
+.auth-buttons button {
+    height: 40px;
+    width: 100px;
+    padding: 5px 15px;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+}

@@ -6,36 +6,214 @@
 
 body {
     font-family: Poppins, sans-serif;
-    background-color: #f0f0f0;
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('beach.png') center/cover no-repeat;
+    background-size: cover;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+.auth-buttons button {
+    height: 40px;
+    width: 100px;
+    padding: 5px 15px;
+}
+
+.form-item {
+    margin-bottom: 20px;
+    height: 50px;
+    background: none;
+    /* Menghilangkan background putih */
+    border: none;
+    /* Opsional: jika ada border */
+    box-shadow: none;
+}
+
+.form-label {
+    margin-bottom: 5px;
+    display: block;
+    font-weight: bold;
+    color: #333;
+}
+
+.form-container {
+    width: 90%;
+    max-width: 600px;
+    margin-left: 50px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.custom-dropdown {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+
+.form-control {
+    padding: 0 50px;
+    /* Padding untuk ikon di kiri dan kanan */
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    appearance: none;
+    /* Hapus panah default pada select */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    font-size: 16px;
+    color: #666;
+    box-sizing: border-box;
+    text-align-last: center;
+    background: transparent;
+    text-align: left;
+}
+
+.form-control::placeholder {
+    color: grey;
+    text-align: left;
+    /* Ensure placeholder text alignment */
+    padding-left: 40px;
+    /* Adjust margin to shift text */
+}
+
+.custom-dropdown .icon-left,
+.custom-dropdown .icon-right {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 18px;
+}
+
+.custom-dropdown .icon-left {
+    left: 10px;
+    color: #6CCFF6;
+}
+
+.custom-dropdown .icon-right {
+    right: 10px;
+    color: #F6BE00;
+    font-size: 18px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #6CCFF6;
+}
+
+.form-item input,
+.form-item select {
+    text-align: left;
+    padding: 10px;
+    /* Atau sesuaikan sesuai kebutuhan */
+    height: 50px;
+    /* Atau sesuaikan sesuai kebutuhan */
+    width: calc(100% - 20px);
+    /* Menyesuaikan lebar input/select */
+}
+
+.form-item .form-label {
+    margin-bottom: 5px;
+    color: #fff;
+    text-align: left;
+    width: 100%;
+    display: block;
+}
+
+.form-item .form-control {
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    color: #333;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    min-width: 300px;
+    max-width: 600px;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+    border: 3px solid grey;
 }
 
 .header {
-    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
     width: 100%;
+    max-width: 1200px;
+    position: absolute;
     top: 0;
-    left: 0;
+    left: 50%;
+    transform: translateX(-50%);
     background-color: transparent;
-    border-bottom: 2px solid #fff;
-    z-index: 1000;
 }
 
 .logo {
+    font-weight: bold;
+    color: #00A8E8;
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    width: 150px;
+    height: auto;
+    /* Adjust logo size */
+    margin-right: 10px;
+}
+
+.logo span {
     font-size: 24px;
     font-weight: bold;
     color: #00A8E8;
 }
 
-nav ul {
-    list-style: none;
+nav {
+    flex-grow: 1;
     display: flex;
-    gap: 20px;
-    margin: 0;
+    justify-content: flex-end;
 }
 
-nav a {
+nav ul.menu {
+    list-style: none;
+    display: flex;
+    gap: -10px;
+    margin-left: auto;
+}
+
+nav ul.menu li {
+    list-style: none;
+    margin-right: 30px;
+    margin-top: 20px;
+}
+
+nav ul.menu li a {
     text-decoration: none;
     color: #fff;
+    font-size: 18px;
     font-weight: bold;
+}
+
+.navbar-line {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 100px);
+    border: none;
+    border-bottom: 2px solid #fff;
 }
 
 .auth-buttons {
@@ -44,8 +222,22 @@ nav a {
 }
 
 .btn-outline-primary {
-    border-color: #00A8E8;
-    color: #00A8E8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 100px;
+    padding: 5px 15px;
+    border: 2px solid white;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.btn-outline-primary i {
+    margin-right: 5px;
 }
 
 .btn-outline-primary:hover {
@@ -53,19 +245,13 @@ nav a {
     color: #fff;
 }
 
-.btn-warning {
-    background-color: #FFA500;
-    border: none;
-}
-
-.btn-warning:hover {
-    background-color: #ff8c00;
-}
-
 .hero {
-    position: relative;
     height: 100vh;
-    background: url('beach.png') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
 }
 
 .overlay {
@@ -74,70 +260,79 @@ nav a {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    /* background: rgba(0, 0, 0, 0.5); */
 }
 
-.hero-content {
-    position: relative;
-    z-index: 1;
-    color: #fff;
-    text-align: center;
-    top: 50%;
-    transform: translateY(-50%);
+.hero-h {
+    font-size: 64px;
+    font-weight: bold;
+    color: white;
+    margin-top: 20px;
 }
 
-.hero h1 {
-    font-size: 48px;
-    text-align: right;
-    margin-bottom: 20px;
+.hero-p {
+    font-size: 32px;
+    color: white;
+}
+
+.hero-class {
+    font-size: 36px;
+    color: white;
+    text-align: left;
     font-weight: bold;
 }
 
-.hero p {
-    font-size: 24px;
-    text-align: right;
-    margin-bottom: 50px;
-}
-
-.booking-form {
-    display: flex;
-    flex-wrap: wrap;
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
 }
 
+.booking-form {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    position: relative;
+}
+
 .booking-form .form-group input {
-    background: rgba(255, 255, 255, 0.8);
+    background: transparent;
     border: none;
     border-radius: 10px;
     padding: 10px;
     color: #333;
     width: 100%;
-    /* Mengatur lebar input 100% dari kontainer */
     box-sizing: border-box;
-    /* Memasukkan padding dan border ke dalam lebar dan tinggi total */
 }
 
 .booking-form .form-group.col-md-5 {
     flex: 0 1 auto;
-    /* Mengatur lebar elemen kiri */
     max-width: calc(60% - 20px);
-    /* Mengatur lebar maksimum elemen kiri */
 }
 
-.booking-form .form-group.col-md-12,
 .booking-form .form-group.col-md-6 {
-    flex: 1;
+    flex: 0 1 auto;
     max-width: calc(50% - 20px);
-    /* Mengatur lebar elemen input */
+}
+
+.form-group.col-md-7 {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+.booking-form .form-group.col-md-12 {
+    flex: 0 1 auto;
+    max-width: calc(100% - 20px);
 }
 
 .booking-form .form-group.col-md-3 {
     flex: 0 1 auto;
-    /* Mengatur lebar elemen kanan (tombol "Mulai") */
 }
 
 .booking-form .form-group input::placeholder {
     color: #666;
+    text-align: right;
     font-weight: bold;
 }
 
@@ -152,26 +347,46 @@ nav a {
     flex-direction: column;
     justify-content: center;
     align-items: flex-end;
+    position: right;
+    /* Tambahkan posisi relatif */
 }
 
 .booking-form .form-group .form-label {
     display: block;
     margin-bottom: 5px;
     color: #fff;
-    /* Warna teks label */
+    text-align: left;
+}
+
+.booking-form .form-group.d-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.booking-form .form-group.d-flex .form-group {
+    flex: 1 1 calc(50% - 20px);
 }
 
 .btn-warning {
-    padding: 15px 30px;
+    padding: 20px 30px;
+    /* Tambah padding vertikal untuk membuat tombol lebih tinggi */
     border: none;
-    border-radius: 20px;
+    border-radius: 10px;
+    /* Menambah sedikit radius pada border */
     background-color: #FFA500;
     color: #fff;
     font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-warning i {
+    margin-right: 10px;
+    /* Jarak antara ikon dan teks */
     font-size: 20px;
 }
 
@@ -179,16 +394,316 @@ nav a {
     background-color: #ff8c00;
 }
 
-@media (min-width: 768px) {
-    .booking-form .form-group {
-        flex: 0 0 33.3333%;
-        max-width: 33.3333%;
+
+/* Media Queries for responsiveness */
+
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
     }
-    .booking-form .form-group.col-md-12 {
-        flex: 0 0 100%;
-        max-width: 100%;
+    .navbar-line {
+        width: 100%;
     }
-    .booking-form .form-group:last-child {
-        align-self: flex-end;
+    nav ul.menu {
+        flex-direction: column;
+        gap: 10px;
     }
+    .auth-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+    .btn-outline-primary,
+    .btn-warning {
+        width: 100%;
+        text-align: center;
+    }
+    .form-container {
+        width: 95%;
+    }
+    .search-container {
+        right: 20px;
+    }
+    .search-input {
+        width: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-control {
+        text-align: left;
+        font-size: 14px;
+        padding: 0 35px;
+    }
+    .custom-dropdown .icon-left,
+    .custom-dropdown .icon-right {
+        font-size: 16px;
+    }
+    .header {
+        padding: 10px 20px;
+    }
+    nav ul.menu {
+        gap: 5px;
+    }
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.menu li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.login,
+.register {
+    background-color: #ffc107;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.form-group.text-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.form-group label,
+.form-group input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.submit-btn {
+    width: auto;
+    grid-column: span 2;
+    justify-self: end;
+    padding: 15px 40px;
+    background-color: #ffc107;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+}
+
+.search-container {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-input {
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+}
+
+.search-button {
+    /* padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #00A8E8;
+    color: white;
+    font-weight: bold;
+    cursor: pointer; */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    border: 2px solid grey;
+    /* Border warna abu-abu */
+    border-radius: 5px;
+    background-color: transparent;
+    color: white;
+    /* Warna teks putih */
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.search-button:hover {
+    background-color: #007ba7;
+}
+
+.button-label {
+    color: white;
+    /* Warna teks */
+    font-size: 16px;
+    /* Ukuran font */
+    font-weight: bold;
+    /* Ketebalan font */
+    margin-bottom: 5px;
+    /* Jarak antara label dan tombol */
+}
+
+.button-search {
+    position: absolute;
+    top: -110px;
+    bottom: -120px;
+    right: -200px;
+    transform: translateY(-50%);
+    width: 100px;
+    /* Menambahkan lebar tombol */
+    height: 90px;
+    /* Menambahkan tinggi tombol */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: orange;
+    border-radius: 15%;
+    color: white;
+    /* Membuat tombol menjadi lingkaran */
+    box-sizing: border-box;
+    /* Pastikan padding tidak menambah lebar atau tinggi tombol */
+    padding: 10px;
+    /* Menambahkan padding untuk memperbesar tombol */
+    border: 3px solid grey;
+}
+
+.icon-search {
+    font-size: 50px;
+    /* Sesuaikan ukuran ikon sesuai kebutuhan */
+    padding: 10px;
+    /* Tambahkan padding untuk memperbesar blok orange */
+    color: white;
+}
+
+.button-search:hover {
+    background-color: rgba(255, 165, 0, 0.8);
+    /* Warna background saat hover */
+    border-color: rgba(255, 165, 0, 0.8);
+    /* Warna border saat hover */
+}
+
+
+/* Style untuk elemen select */
+
+.custom-dropdown .form-control {
+    -webkit-appearance: none;
+    /* Hapus panah default pada Safari */
+    -moz-appearance: none;
+    /* Hapus panah default pada Firefox */
+    appearance: none;
+    /* Hapus panah default pada browser lainnya */
+    background-color: #fff;
+    /* Warna background */
+    border: 2px solid #ddd;
+    /* Border */
+    padding: 10px 20px;
+    /* Padding */
+    font-size: 16px;
+    /* Ukuran font */
+    border-radius: 10px;
+    /* Border radius */
+    color: #333;
+    /* Warna teks */
+    cursor: pointer;
+    /* Cursor */
+    width: 100%;
+    /* Lebar penuh */
+    box-sizing: border-box;
+    /* Box-sizing */
+    transition: border-color 0.3s ease;
+    /* Transisi untuk border */
+}
+
+
+/* Style untuk hover dan focus */
+
+.custom-dropdown .form-control:hover,
+.custom-dropdown .form-control:focus {
+    border-color: #6CCFF6;
+    /* Warna border saat hover dan focus */
+    outline: none;
+    /* Hapus outline */
+}
+
+
+/* Tambahkan ikon dropdown custom */
+
+.custom-dropdown::after {
+    content: '\25BC';
+    /* Unicode untuk ikon dropdown */
+    font-size: 18px;
+    /* Ukuran font */
+    color: #F6BE00;
+    /* Warna ikon */
+    position: absolute;
+    /* Posisi absolut */
+    right: 10px;
+    /* Jarak kanan */
+    top: 50%;
+    /* Posisi tengah vertikal */
+    transform: translateY(-50%);
+    /* Transformasi vertikal */
+    pointer-events: none;
+    /* Pastikan ikon tidak menghalangi interaksi */
+}
+
+
+/* Style untuk option */
+
+.custom-dropdown select option {
+    background: #fff;
+    /* Warna background */
+    color: #333;
+    /* Warna teks */
+    padding: 10px;
+    /* Padding */
+    border: none;
+    /* Hapus border */
+    cursor: pointer;
+    /* Cursor */
+}
+
+
+/* Style untuk option saat hover */
+
+.custom-dropdown select option:hover {
+    background: #6CCFF6;
+    /* Warna background saat hover */
+    color: #fff;
+    /* Warna teks saat hover */
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background: transparent;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+    height: auto;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
 }
