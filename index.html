@@ -1,90 +1,173 @@
-<!DOCTYPE html>
-<html lang="id">
+<!doctype html>
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
     <title>PeKa - Sewa Kapal</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
     <header class="header">
-        <div class="container d-flex justify-content-between align-items-center py-3">
-            <div class="logo">PeKa</div>
-            <div class="d-flex align-items-center">
-                <nav>
-                    <ul class="nav">
-                        <li class="nav-item"><a href="#" class="nav-link">Beranda</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">Riwayat</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">Pemesanan</a></li>
-                    </ul>
-                </nav>
-                <div class="auth-buttons ml-3">
-                    <button class="btn btn-outline-primary">
-                        <i class="fas fa-user"></i> Masuk
-                    </button>
-                    <button class="btn btn-warning">Daftar</button>
-                </div>
-            </div>
+        <div class="logo">
+            <img src="peka.png" alt="Logo">
         </div>
+        <nav>
+            <ul class="menu">
+                <li><a href="#">Beranda</a></li>
+                <li><a href="#">Riwayat</a></li>
+                <li><a href="beranda.html">Pemesanan</a></li>
+            </ul>
+        </nav>
+        <div class="auth-buttons">
+            <button class="btn btn-outline-primary"><i class="fa fa-user"></i> Masuk</button>
+            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#registrationModal">Daftar</button>
+        </div>
+        <hr class="navbar-line">
     </header>
+
     <main>
         <section class="hero position-relative">
             <div class="overlay"></div>
-            <div class="container hero-content text-white">
+            <div class="container hero-content">
                 <div class="text-right">
-                    <h1>Temukan Pulau baru</h1>
-                    <p>Sewa Kapal dengan mudah!</p>
+                    <h1 class="hero-h text-white">Temukan Pulau Baru</h1>
+                    <p class="hero-p">Sewa Kapal dengan Mudah!</p>
+                    <p class="hero-class">Pesan Kapal Anda</p>
                     <form class="booking-form row justify-content-end">
-                        <div class="form-group col-md-5">
-                            <!-- Mengubah lebar form group menjadi 5 kolom untuk elemen kiri -->
-                            <div class="d-flex flex-wrap">
-                                <div class="form-group col-md-6">
+                        <div class="form-container">
+                            <div class="grid-container">
+                                <div class="form-item">
                                     <label for="from" class="form-label">Dari</label>
-                                    <input type="text" class="form-control" id="from" placeholder="Pilih lokasi anda">
+                                    <div class="custom-dropdown">
+                                        <span class="icon-left">&#x1F50E;</span>
+                                        <select id="from" class="form-control placeholder">
+                        <option value="" disabled selected>Pilih lokasi anda</option>
+                        <option value="Pelabuhan Paotere">Pelabuhan Paotere</option>
+                        <option value="Pulau Lanjukkang">Pulau Lanjukkang</option>
+                        <option value="Pulau Samalona">Pulau Samalona</option>
+                        <option value="Pulau Barranglompo">Pulau Barranglompo</option>
+                      </select>
+                                        <span class="icon-right">&#x25BC;</span>
+                                    </div>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-item">
                                     <label for="to" class="form-label">Ke</label>
-                                    <input type="text" class="form-control" id="to" placeholder="Pilih destinasi anda">
+                                    <div class="custom-dropdown">
+                                        <span class="icon-left">&#x1F50E;</span>
+                                        <select id="to" class="form-control placeholder">
+                        <option value="" disabled selected>Pilih lokasi anda</option>
+                        <option value="Pelabuhan Paotere">Pelabuhan Paotere</option>
+                        <option value="Pulau Lanjukkang">Pulau Lanjukkang</option>
+                        <option value="Pulau Samalona">Pulau Samalona</option>
+                        <option value="Pulau Barranglompo">Pulau Barranglompo</option>
+                      </select>
+                                        <span class="icon-right">&#x25BC;</span>
+                                    </div>
                                 </div>
-                                <div class="form-group col-md-12">
-                                    <label for="departure-date" class="form-label">Tanggal Pelayaran</label>
-                                    <input type="date" class="form-control" id="departure-date">
+                                <div class="form-item">
+                                    <label for="date" class="form-label">Tanggal Pelayaran</label>
+                                    <div class="custom-dropdown">
+                                        <span class="icon-left">&#x1F4C5;</span>
+                                        <input type="date" id="date" class="form-control placeholder">
+                                        <span class="icon-right">&#x25BC;</span>
+                                    </div>
                                 </div>
-                                <div class="form-group col-md-12">
+                                <div class="form-item">
                                     <label for="return-date" class="form-label">Tanggal Kembali</label>
-                                    <input type="date" class="form-control" id="return-date">
+                                    <div class="custom-dropdown">
+                                        <span class="icon-left">&#x1F4C5;</span>
+                                        <input type="date" id="return-date" class="form-control">
+                                        <span class="icon-right">&#x25BC;</span>
+                                    </div>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label for="adults" class="form-label">Orang Dewasa</label>
-                                    <input type="number" class="form-control" id="adults" placeholder="Orang Dewasa">
+                                <div class="form-item">
+                                    <label for="passengers" class="form-label">Penumpang</label>
+                                    <div class="custom-dropdown">
+                                        <span class="icon-left">&#x1F465;</span>
+                                        <select id="passengers" class="form-control">
+                        <option value="" disabled selected>Pilih jumlah penumpang</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                      </select>
+                                        <span class="icon-right">&#x25BC;</span>
+                                    </div>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label for="children" class="form-label">Anak Kecil</label>
-                                    <input type="number" class="form-control" id="children" placeholder="Anak Kecil">
+                                <div class="form-item">
+                                    <label for="type" class="form-label">Tipe Kapal</label>
+                                    <div class="custom-dropdown">
+                                        <span class="icon-left">&#x1F6A2;</span>
+                                        <select id="type" class="form-control placeholder">
+                        <option value="" disabled selected>Pilih tipe kapal</option>
+                        <option value="speedboat">Speedboat</option>
+                        <option value="yacht">Yacht</option>
+                        <option value="ferry">Ferry</option>
+                      </select>
+                                        <span class="icon-right">&#x25BC;</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group col-md-3 text-right align-self-center d-flex flex-column">
-                            <!-- Tetapkan lebar form group menjadi 3 kolom untuk tombol "Mulai" -->
-                            <p class="mb-1 text-white">Mulai</p>
-                            <button type="submit" class="btn btn-warning">
-                                <i class="fas fa-search"></i>
-                            </button>
+                            <div class="form-group text-right">
+                                <button type="submit" class="button-search">
+                    <i class="fas fa-search icon-search"></i>
+                    <div class="form-group text-right">
+                      <!-- <label for="button-search" class="button-label">Cari</label> -->
+                    </div>
+                  </button>
+                            </div>
                         </div>
                     </form>
                 </div>
             </div>
-
-
         </section>
     </main>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Registration Modal -->
+    <div class="modal fade" id="registrationModal" tabindex="-1" aria-labelledby="registrationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registrationModalLabel">Register</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="registrationForm">
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" required>
+                            <small class="error" id="usernameError">Username must be at least 6 characters</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                            <small class="error" id="passwordError">Password must be at least 6 alphanumeric characters</small>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
+    <script src="scripts.js"></script>
 </body>
 
 </html>
