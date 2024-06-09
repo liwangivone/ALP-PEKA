@@ -1,5 +1,9 @@
 package com.group1.peka.models.repositories;
 
-public class DeparturePortRepo {
+import org.springframework.data.repository.CrudRepository;
+
+import com.group1.peka.models.entities.DeparturePort;
+
+public interface DeparturePortRepo extends CrudRepository<DeparturePort, String>{
     
 }

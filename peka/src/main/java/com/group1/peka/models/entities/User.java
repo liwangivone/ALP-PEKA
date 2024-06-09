@@ -19,20 +19,20 @@ import lombok.Setter;
 public class User {
 
     @Id
-    @Column(name = "user_id")
+    @Column(name = "user_id", length = 10)
     private String userID;
 
-    @NotEmpty(message = "Full name is required")
-    @Column(name = "full_name", nullable = false)
-    private String fullName;
+    @NotEmpty(message = "Name is required")
+    @Column(name = "Name", nullable = false)
+    private String name;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "gender", nullable = false)
-    private String gender;
+    private Gender gender;
 
-    @NotEmpty(message = "Username is required")
-    @Column(name = "username", unique = true, nullable = false)
-    private String username;
+    @NotEmpty(message = "Email is required")
+    @Column(name = "email", unique = true, nullable = false)
+    private String email;
 
     @NotEmpty(message = "Password is required")
     @Column(name = "password", nullable = false)
@@ -47,11 +47,11 @@ public class User {
         MALE
     }
 
-    public User(String userID, String fullName, String gender, String username, String password, String phoneNumber) {
+    public User(String userID, String name, Gender gender, String email, String password, String phoneNumber) {
         this.userID = userID;
-        this.fullName = fullName;
+        this.name = name;
         this.gender = gender;
-        this.username = username;
+        this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
     }

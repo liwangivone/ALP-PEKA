@@ -19,7 +19,7 @@ import lombok.Setter;
 public class Transaction {
 
     @Id
-    @Column(name = "transaction_id")
+    @Column(name = "transaction_id", length = 10)
     private String transactionID;
 
     @ManyToOne

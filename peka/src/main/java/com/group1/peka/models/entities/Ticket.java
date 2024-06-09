@@ -7,6 +7,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,7 +21,7 @@ import lombok.Setter;
 public class Ticket {
 
     @Id
-    @Column(name = "ticket_id", nullable = false)
+    @Column(name = "ticket_id", length = 10)
     private String ticketID;
 
     @ManyToOne
@@ -42,8 +44,17 @@ public class Ticket {
     @Column(name = "passenger_name", nullable = false)
     private String passenggerName;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "passenger_type", nullable = false)
+    private PassengerType passengerType;
 
-    public Ticket(String ticketID, ShipOperation shipOperationID, Transaction transactionID, int price, LocalDateTime departureTime, LocalDateTime arrivalTime, String passenggerName) {
+
+    public enum PassengerType {
+            CHILDREN,
+            ADULT
+        }
+
+    public Ticket(String ticketID, ShipOperation shipOperationID, Transaction transactionID, int price, LocalDateTime departureTime, LocalDateTime arrivalTime, String passenggerName, PassengerType passengerType) {
         this.ticketID = ticketID;
         this.shipOperationID = shipOperationID;
         this.transactionID = transactionID;
@@ -51,5 +62,6 @@ public class Ticket {
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
         this.passenggerName = passenggerName;
+        this.passengerType = passengerType;
     }    
 }

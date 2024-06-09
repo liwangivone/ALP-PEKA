@@ -1,5 +1,9 @@
 package com.group1.peka.models.repositories;
 
-public class DestinationRepo {
+import org.springframework.data.repository.CrudRepository;
+
+import com.group1.peka.models.entities.Destination;
+
+public interface DestinationRepo extends CrudRepository<Destination, String> {
     
 }

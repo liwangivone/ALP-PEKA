@@ -16,7 +16,7 @@ import lombok.Setter;
 public class Destination {
 
     @Id
-    @Column(name = "destination_id")
+    @Column(name = "destination_id", length = 10)
     private String destinationID;
 
     @Column(name = "name", nullable = false)

@@ -11,14 +11,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "ship_operation")
+@Table(name = "ship operation")
 @Getter
 @Setter
 @NoArgsConstructor
 public class ShipOperation {
 
     @Id
-    @Column(name = "ship_operation_id")
+    @Column(name = "ship_operation_id", length = 10)
     private String shipOperationID;
 
     @ManyToOne

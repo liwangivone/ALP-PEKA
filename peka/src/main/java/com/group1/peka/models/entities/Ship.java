@@ -1,5 +1,8 @@
 package com.group1.peka.models.entities;
 
+import java.util.List;
+import java.util.Optional;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -18,7 +21,7 @@ import lombok.Setter;
 public class Ship {
 
     @Id
-    @Column(name = "ship_id", nullable = false)
+    @Column(name = "ship_id", length = 10)
     private String shipID;
 
     @Column(name = "name", nullable = false)
