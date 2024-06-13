@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "user")
+@Table(name = "admin")
 @Getter
 @Setter
 @NoArgsConstructor
-public class User {
+public class Admin {
 
     @Id
     @NotEmpty(message = "Email is required")
@@ -29,9 +29,10 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    public User(String email, String name, String password) {
+
+    public Admin(String email, String name, String password) {
         this.email = email;
         this.name = name;
         this.password = password;
-    }
+    }   
 }

@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import com.group1.peka.dto.ResponseData;
 import com.group1.peka.models.entities.Ship;
-import com.group1.peka.models.entities.Ship.ShipType;
 import com.group1.peka.services.ShipService;
 
 @RestController
@@ -21,13 +20,12 @@ public class ShipController {
 
     @PostMapping("/create")
     public ResponseEntity<ResponseData<Ship>> createShip(
-            @RequestParam String shipID,
+            @RequestParam int shipID,
             @RequestParam String name,
-            @RequestParam int capacity,
-            @RequestParam ShipType shipType) {
+            @RequestParam int capacity) {
         ResponseData<Ship> responseData = new ResponseData<>();
 
-        Ship ship = shipService.createShip(shipID, name, capacity, shipType);
+        Ship ship = shipService.createShip(shipID, name, capacity);
 
         responseData.setStatus(true);
         responseData.setPayload(ship);
@@ -36,7 +34,7 @@ public class ShipController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ResponseData<Ship>> getShipByID(
-            @PathVariable String id) {
+            @PathVariable int id) {
         ResponseData<Ship> responseData = new ResponseData<>();
 
         Optional<Ship> ship = shipService.getShipByID(id);

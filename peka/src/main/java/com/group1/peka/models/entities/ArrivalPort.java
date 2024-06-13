@@ -2,9 +2,12 @@ package com.group1.peka.models.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,20 +21,21 @@ import lombok.Setter;
 public class ArrivalPort {
 
     @Id
-    @Column(name = "port_id", length = 10)
-    private String portID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "port_id")
+    private int portID;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "destination_id", nullable = false)
     private Destination destination;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "port_name", nullable = false)
+    private String portName;
 
 
-    public ArrivalPort(String portID, Destination destination, String name) {
+    public ArrivalPort(int portID, Destination destination, String portName) {
         this.portID = portID;
         this.destination = destination;
-        this.name = name;
+        this.portName = portName;
     }
 }

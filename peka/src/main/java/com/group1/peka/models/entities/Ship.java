@@ -1,14 +1,11 @@
 package com.group1.peka.models.entities;
 
-import java.util.List;
-import java.util.Optional;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,29 +18,25 @@ import lombok.Setter;
 public class Ship {
 
     @Id
-    @Column(name = "ship_id", length = 10)
-    private String shipID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ship_id")
+    private int shipID;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "ship_name", nullable = false)
+    private String shipName;
 
     @Column(name = "capacity", nullable = false)
     private int capacity;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "ship_type", nullable = false)
-    private ShipType shipType;
+    
+    @Column(name = "status", nullable = false)
+    private String status;
 
 
-    public enum ShipType {
-        SMALL,
-        LARGE
-    }
-
-    public Ship(String shipID, String name, int capacity, ShipType shipType) {
+    public Ship(int shipID, String shipName, int capacity, String status) {
         this.shipID = shipID;
-        this.name = name;
+        this.shipName = shipName;
         this.capacity = capacity;
-        this.shipType = shipType;
+        this.status = status;
     }
 }

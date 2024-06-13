@@ -26,14 +26,14 @@ public class TransactionController {
 
     @PostMapping("/user/{id}")
     public ResponseEntity<ResponseData<Transaction>> createTransaction(
-            @PathVariable("id") String userID,
-            @RequestParam String transactionID,
+            @RequestParam String email,
+            @RequestParam int transactionID,
             @RequestParam String vaNumber,
             @RequestParam int totalPrice,
             @RequestParam int passengerQuantity) {
         ResponseData<Transaction> responseData = new ResponseData<>();
 
-        Optional<User> user = userService.getUserByID(userID);
+        Optional<User> user = userService.getUserByEmail(email);
         if (!user.isPresent()) {
             responseData.setStatus(false);
             responseData.getMessages().add("User not found");
@@ -50,10 +50,10 @@ public class TransactionController {
 
     @GetMapping("/user/{id}")
     public ResponseEntity<ResponseData<List<Transaction>>> getAllTransactionByUser(
-            @PathVariable("id") String userID) {
+            @RequestParam String email) {
         ResponseData<List<Transaction>> responseData = new ResponseData<>();
 
-        Optional<User> user = userService.getUserByID(userID);
+        Optional<User> user = userService.getUserByEmail(email);
         if (!user.isPresent()) {
             responseData.setStatus(false);
             responseData.getMessages().add("User not found");

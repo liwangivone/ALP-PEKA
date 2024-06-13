@@ -1,9 +1,5 @@
 package com.group1.peka.dto;
 
-import java.time.LocalDateTime;
-
-import com.group1.peka.models.entities.Ticket.PassengerType;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,24 +9,18 @@ import lombok.Setter;
 @NoArgsConstructor
 public class TicketData {
 
-    private String ticketID;
+    private int ticketID;
 
     private int price;
 
-    private LocalDateTime departureTime;
-
-    private LocalDateTime arrivalTime;
-
     private String passengerName;
 
-    private PassengerType passengerType;    
+    private String passengerType;    
 
 
-    public TicketData(String ticketID, int price, LocalDateTime departureTime, LocalDateTime arrivalTime, String passengerName, PassengerType passengerType) {
+    public TicketData(int ticketID, int price, String passengerName, String passengerType) {
         this.ticketID = ticketID;
         this.price = price;
-        this.departureTime = departureTime;
-        this.arrivalTime = arrivalTime;
         this.passengerName = passengerName;
         this.passengerType = passengerType;
     }

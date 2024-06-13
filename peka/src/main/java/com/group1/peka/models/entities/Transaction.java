@@ -3,6 +3,8 @@ package com.group1.peka.models.entities;
 import java.time.LocalDateTime;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -19,15 +21,16 @@ import lombok.Setter;
 public class Transaction {
 
     @Id
-    @Column(name = "transaction_id", length = 10)
-    private String transactionID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "transaction_id")
+    private int transactionID;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @Column(name = "va_number", nullable = false)
-    private String vaNumber;
+    private String virtualAccountNumber;
 
     @Column(name = "total_price", nullable = false)
     private int totalPrice;
@@ -39,10 +42,10 @@ public class Transaction {
     private LocalDateTime transactionTime;
 
 
-    public Transaction(String transactionID, User user, String vaNumber, int totalPrice, int passengerQuantity, LocalDateTime transactionTime) {
+    public Transaction(int transactionID, User user, String virtualAccountNumber, int totalPrice, int passengerQuantity, LocalDateTime transactionTime) {
         this.transactionID = transactionID;
         this.user = user;
-        this.vaNumber = vaNumber;
+        this.virtualAccountNumber = virtualAccountNumber;
         this.totalPrice = totalPrice;
         this.passengerQuantity = passengerQuantity;
         this.transactionTime = transactionTime;

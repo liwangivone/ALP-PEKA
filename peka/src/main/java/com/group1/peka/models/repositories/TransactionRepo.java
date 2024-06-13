@@ -8,7 +8,7 @@ import com.group1.peka.models.entities.User;
 import java.util.List;
 
 
-public interface TransactionRepo extends CrudRepository<Transaction, String> {
+public interface TransactionRepo extends CrudRepository<Transaction, Integer> {
 
     List<Transaction> findByUser(User user);    
 }

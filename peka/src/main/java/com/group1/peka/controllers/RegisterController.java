@@ -8,15 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.group1.peka.dto.ResponseData;
 import com.group1.peka.dto.user.UserData;
 import com.group1.peka.dto.user.UserListData;
 import com.group1.peka.models.entities.User;
-import com.group1.peka.models.entities.User.Gender;
 import com.group1.peka.services.UserService;
+import com.group1.peka.services.AdminService;
 
 @RestController
 @RequestMapping("/api/register")
@@ -25,24 +24,21 @@ public class RegisterController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/user/{id}")
+    @Autowired
+    AdminService adminService;
+
+    @PostMapping("/user")
     public ResponseEntity<ResponseData<UserListData>> createUser(
-            @PathVariable("id") String userID,
-            @RequestParam String name,
             @RequestParam String email,
-            @RequestParam String password,
-            @RequestParam Gender gender,
-            @RequestParam String phoneNumber) {
+            @RequestParam String name,
+            @RequestParam String password) {
         
         ResponseData<UserListData> responseData = new ResponseData<>();
         List<UserData> result = new ArrayList<>();
 
         User userCheck = userService.createUser(
-            userID,
-            name, 
-            gender, 
             email, 
-            phoneNumber, 
+            name, 
             password);
 
         if (userCheck == null) {
@@ -52,11 +48,8 @@ public class RegisterController {
         }
 
         result.add(new UserData(
-            userCheck.getUserID(),
-            userCheck.getName(),
-            userCheck.getGender(), 
             userCheck.getEmail(),
-            userCheck.getPhoneNumber()));
+            userCheck.getName()));
 
         responseData.setStatus(true);
         responseData.setPayload(new UserListData(result));

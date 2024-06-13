@@ -4,6 +4,6 @@ import com.group1.peka.models.entities.ArrivalPort;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface ArrivalPortRepo extends CrudRepository<ArrivalPort, String> {
+public interface ArrivalPortRepo extends CrudRepository<ArrivalPort, Integer> {
     
 }

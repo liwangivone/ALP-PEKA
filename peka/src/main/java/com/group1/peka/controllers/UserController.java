@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,7 +18,6 @@ import com.group1.peka.dto.ResponseData;
 import com.group1.peka.dto.user.UserData;
 import com.group1.peka.dto.user.UserListData;
 import com.group1.peka.models.entities.User;
-import com.group1.peka.models.entities.User.Gender;
 import com.group1.peka.services.UserService;
 
 @RestController
@@ -29,12 +27,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ResponseData<UserListData>> getUserByID(@PathVariable("id") String id) {
+    @GetMapping("/email")
+    public ResponseEntity<ResponseData<UserListData>> getUserByEmail(
+        @RequestParam String email) {
         ResponseData<UserListData> responseData = new ResponseData<>();
         List<UserData> result = new ArrayList<>();
 
-        Optional<User> user = userService.getUserByID(id);
+        Optional<User> user = userService.getUserByEmail(email);
 
         if (!user.isPresent()) {
             responseData.setStatus(false);
@@ -44,12 +43,10 @@ public class UserController {
         }
 
         result.add(new UserData(
-            user.get().getUserID(),
-            user.get().getName(),
-            user.get().getGender(),
-            user.get().getEmail(),
-            user.get().getPhoneNumber()));
-        
+                user.get().getEmail(),
+                user.get().getName()));
+              
+           
         responseData.setStatus(true);
         responseData.setPayload(new UserListData(result));
         
@@ -64,11 +61,8 @@ public class UserController {
 
         for (User user : allUser) {
             result.add(new UserData(
-                user.getUserID(),
-                user.getName(),
-                user.getGender(),
                 user.getEmail(),
-                user.getPhoneNumber()));
+                user.getName()));
         }
 
         responseData.setStatus(true);
@@ -77,16 +71,13 @@ public class UserController {
         return ResponseEntity.ok(responseData);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/email")
     public ResponseEntity<ResponseData<UserListData>> updateUser(
-            @PathVariable("id") String userID,
             @RequestParam String name,
-            @RequestParam Gender gender,
-            @RequestParam String email,
-            @RequestParam String phoneNumber) {
+            @RequestParam String email) {
         ResponseData<UserListData> responseData = new ResponseData<>();
         List<UserData> result = new ArrayList<>();
-        Optional<User> user = userService.getUserByID(userID);
+        Optional<User> user = userService.getUserByEmail(email);
 
         if (!user.isPresent()) {
             responseData.setStatus(false);
@@ -96,19 +87,14 @@ public class UserController {
         }
 
         User userNew = new User(
-                userID,
-                name,
-                gender,
-                email,
-                phoneNumber,
-                user.get().getPassword());
+            email,
+            name,
+            user.get().getPassword());
+                
 
         result.add(new UserData(
-                userID,
-                name,
-                gender,
                 email,
-                phoneNumber));
+                name));
 
         userService.updateUser(userNew);
         responseData.setStatus(true);
@@ -117,11 +103,12 @@ public class UserController {
         return ResponseEntity.ok(responseData);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseData<User>> delete(@PathVariable("id") String id) {
+    @DeleteMapping("/email")
+    public ResponseEntity<ResponseData<User>> delete(
+        @RequestParam String email) {
         ResponseData<User> responseData = new ResponseData<>();
 
-        Optional<User> user = userService.getUserByID(id);
+        Optional<User> user = userService.getUserByEmail(email);
 
         if (!user.isPresent()) {
             responseData.setStatus(false);
@@ -130,9 +117,9 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseData);
         }
 
-        userService.deleteUserByID(id);
+        userService.deleteUserByEmail(email);
         responseData.setStatus(true);
-        responseData.getMessages().add("User is deleted");
+        responseData.getMessages().add("The user " + user.get().getName() + " is deleted");
 
         return ResponseEntity.ok(responseData);
     }  

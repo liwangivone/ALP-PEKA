@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.group1.peka.models.entities.Destination;
 
-public interface DestinationRepo extends CrudRepository<Destination, String> {
+public interface DestinationRepo extends CrudRepository<Destination, Integer> {
     
 }

@@ -14,9 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.group1.peka.dto.ResponseData;
 import com.group1.peka.dto.user.UserData;
+import com.group1.peka.dto.admin.AdminData;
 import com.group1.peka.dto.user.UserLoginData;
+import com.group1.peka.dto.admin.AdminLoginData;
 import com.group1.peka.models.entities.User;
+import com.group1.peka.models.entities.Admin;
 import com.group1.peka.services.UserService;
+import com.group1.peka.services.AdminService;
 
 @RestController
 @RequestMapping("/api/login")
@@ -24,6 +28,9 @@ public class LoginController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private AdminService adminService;
 
     @PostMapping("/user")
     public ResponseEntity<ResponseData<UserLoginData>> loginUser(
@@ -38,11 +45,8 @@ public class LoginController {
             if (password.equals(user.get().getPassword())) {
 
                 UserData userData = new UserData(
-                    user.get().getUserID(),
-                    user.get().getName(),
-                    user.get().getGender(),
                     user.get().getEmail(),
-                    user.get().getPhoneNumber()); 
+                    user.get().getName()); 
 
                 List<UserData> userList = new ArrayList<>();
                 userList.add(userData);
@@ -70,5 +74,49 @@ public class LoginController {
         responseData.setPayload(new UserLoginData(false, userList));
 
         return ResponseEntity.badRequest().body(responseData);
-        }    
-}
+    }
+    
+    @PostMapping("/admin")
+    public ResponseEntity<ResponseData<AdminLoginData>> loginAdmin(
+            @RequestParam String email,
+            @RequestParam String password) {
+        
+        ResponseData<AdminLoginData> responseData =  new ResponseData<>();
+
+        Optional<Admin> admin = adminService.getAdminByEmail(email);
+
+        if (admin.isPresent()) {
+            if (password.equals(admin.get().getPassword())) {
+
+                AdminData userData = new AdminData(
+                    admin.get().getEmail(),
+                    admin.get().getName()); 
+
+                List<AdminData> adminList = new ArrayList<>();
+                adminList.add(userData);
+
+                responseData.setStatus(true);
+                responseData.getMessages().add("Successfully logged in");
+                responseData.setPayload(new AdminLoginData(true, adminList));
+
+                return ResponseEntity.ok(responseData);
+            }
+
+            else {
+                List<AdminData> adminList = new ArrayList<>();
+
+                responseData.getMessages().add("Incorrect password");
+                responseData.setPayload(new AdminLoginData(false, adminList));
+
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseData);
+            }   
+        }
+        List<AdminData> adminList = new ArrayList<>();
+
+        responseData.setStatus(false);
+        responseData.getMessages().add("Invalid email");
+        responseData.setPayload(new AdminLoginData(false, adminList));
+
+        return ResponseEntity.badRequest().body(responseData);
+    }        
+}        

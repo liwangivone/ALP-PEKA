@@ -1,14 +1,13 @@
 package com.group1.peka.models.entities;
 
-import java.time.LocalDateTime;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,8 +20,9 @@ import lombok.Setter;
 public class Ticket {
 
     @Id
-    @Column(name = "ticket_id", length = 10)
-    private String ticketID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ticket_id")
+    private int ticketID;
 
     @ManyToOne
     @JoinColumn(name = "ship_operation_id", nullable = false)
@@ -35,33 +35,18 @@ public class Ticket {
     @Column(name = "price", nullable = false)
     private int price;
 
-    @Column(name = "departure_time", nullable = false)
-    private LocalDateTime departureTime;
-
-    @Column(name = "arrival_time")
-    private LocalDateTime arrivalTime;
-
     @Column(name = "passenger_name", nullable = false)
-    private String passenggerName;
+    private String passengerName;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "passenger_type", nullable = false)
-    private PassengerType passengerType;
+    private String passengerType;
 
-
-    public enum PassengerType {
-            CHILDREN,
-            ADULT
-        }
-
-    public Ticket(String ticketID, ShipOperation shipOperationID, Transaction transactionID, int price, LocalDateTime departureTime, LocalDateTime arrivalTime, String passenggerName, PassengerType passengerType) {
+    public Ticket(int ticketID, ShipOperation shipOperationID, Transaction transactionID, int price, String passenggerName, String passengerType) {
         this.ticketID = ticketID;
         this.shipOperationID = shipOperationID;
         this.transactionID = transactionID;
         this.price = price;
-        this.departureTime = departureTime;
-        this.arrivalTime = arrivalTime;
-        this.passenggerName = passenggerName;
+        this.passengerName = passenggerName;
         this.passengerType = passengerType;
     }    
 }
