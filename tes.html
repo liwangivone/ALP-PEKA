@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/tesstyle.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container mx-auto p-4">
+        <header class="flex justify-between items-center py-4">
+            <div class="flex items-center">
+              <img src="gambar/peka.png" alt="logo" class="img-fluid" style="width: 120px; height: 70px;">
+            </div>
+            <nav class="flex space-x-4">
+                <a href="index.html" class="text-zinc-600">Beranda</a>
+                <a href="riwayat.html" class="text-zinc-600">Riwayat</a>
+            </nav>
+            <div class="flex items-center space-x-2">
+                <span class="text-zinc-600">Hi, Leonard!</span>
+            </div>
+        </header>
+        <main>
+          <p class="text-center text-zinc-900 dark:text-zinc-100 mb-4 text-3xl">Pilih jadwal pergi</p>
+          <div class="p-4 bg-teal-400 rounded-lg max-w-6xl mx-auto"> 
+              <div class="bg-white p-6 rounded-lg shadow-md max-w-2xl mx-auto">
+                  <h2 class="text-2xl font-bold"><span id="port-awal"></span> → <span id="port-akhir"></span></h2>
+                  <script>
+                      const portAwal = localStorage.getItem('port-awal');
+                      const portAkhir = localStorage.getItem('port-akhir');
+                      document.getElementById('port-awal').textContent = portAwal;
+                      document.getElementById('port-akhir').textContent = portAkhir;
+                  </script>
+
+                  <script>
+                      const departureDate = new Date(localStorage.getItem('tanggalPelayaran'));
+                      const dayNames = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+                      const day = dayNames[departureDate.getDay()];
+                      const dateFormatted = departureDate.toLocaleDateString('id-ID', {
+                          day: 'numeric',
+                          month: 'long',
+                          year: 'numeric'
+                      });
+                      const adults = localStorage.getItem('orangDewasa') || '0'; // Default to '0' if null or undefined
+                      const children = localStorage.getItem('anakKecil') || '0'; // Default to '0' if null or undefined
+                  </script>
+                  <p class="text-base text-zinc-600 mt-2">
+                      <script>
+                          document.write(`${day}, ${dateFormatted} | (${adults}) Orang Dewasa | (${children}) Anak Kecil`);
+                      </script>
+                  </p>
+              </div>
+              <!-- <div class="mt-4 bg-teal-300 p-4 rounded-lg flex justify-between items-center">
+                  <div class="flex space-x-4 overflow-x-auto"> -->
+        
+          <!-- <div class="d-flex justify-content-start gap-6" id="dateButtons"> 
+            <script>
+                const tanggalPelayaran = localStorage.getItem('tanggalPelayaran');
+                const startDate = new Date(tanggalPelayaran);
+                const dateButtonsContainer = document.getElementById('dateButtons');
+                const today = new Date();
+                today.setHours(0, 0, 0, 0); // Set time to 00:00:00 to compare only dates
+
+                // Clear previous buttons
+                dateButtonsContainer.innerHTML = '';
+
+                // Calculate start and end dates based on h-5 and h+5 days from 'tanggalPelayaran'
+                const startRangeDate = new Date(startDate);
+                startRangeDate.setDate(startRangeDate.getDate() - 5);
+                const endRangeDate = new Date(startDate);
+                endRangeDate.setDate(endRangeDate.getDate() + 5);
+
+                // Create buttons for each day from h-5 to h+5 days around 'tanggalPelayaran'
+                for (let d = new Date(startRangeDate); d <= endRangeDate; d.setDate(d.getDate() + 1)) {
+                    if (d >= today) { // Only create buttons for today or future dates
+                        const dateButton = document.createElement('button');
+                        dateButton.type = 'button';
+                        dateButton.className = 'text-center min-w-[80px] h-12 btn btn-secondary'; // Updated height size
+                        dateButton.style.backgroundColor = 'transparent';
+                        dateButton.style.border = '1px solid transparent';
+                        dateButton.style.borderRadius = '5px';
+                        dateButton.style.width = '100px';
+                        dateButton.style.height = '75px';
+                        const dayNames = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+                        const day = dayNames[d.getDay()];
+                        const dateFormatted = d.toLocaleDateString('id-ID', {
+                            day: 'numeric',
+                            month: 'long'
+                        });
+                        dateButton.innerHTML = `<p class="text-xs">${day}, ${dateFormatted}</p><p class="text-xs font-bold">Lihat Harga</p>`;
+                        // Add event listener to change button color on click
+                        dateButton.addEventListener('click', function() {
+                            dateButton.style.backgroundColor = 'teal'; // Change button color on click
+                            dateButton.style.borderRadius = '5px'; // Make background color rounded
+                            dateButton.style.width = '100px';
+                            dateButton.style.height = '75px';
+                            // Do not change the following properties
+                            // dateButton.style.width = '100px'; // Make button width bigger
+                            // dateButton.style.height = '50px'; // Make button height bigger
+                            // dateButton.style.fontSize = '8px'; // Increase font size
+                        });
+                        dateButtonsContainer.appendChild(dateButton);
+                    }
+                }
+            </script>
+          </div> -->
+          </div>
+        </div>
+    </div>
+    </div>
+<div class="max-w-lg mx-auto p-4 bg-white dark:bg-zinc-800 shadow-md rounded-lg" style="max-width: 78%; margin-top: 20px;">
+  <div class="flex justify-between items-center mb-4">
+    <div>
+        <h1 class="text-xl font-bold text-zinc-900 dark:text-zinc-100">PELABUHAN PAOTERE</h1>
+    <div class="text-xl font-bold text-zinc-900 dark:text-zinc-100" style="font-size: 30px;">Rp <span id="departure-price" style="font-size: 30px;">100.000</span></div>
+</div>
+<div class="mt-2 d-flex gap-2">
+    <button id="earlyMorningDeparture" class="btn btn-secondary" onclick="changeTime('07:00', this, '1');
+    document.getElementById('payment-section').setAttribute('data-time', '07:00');">07:00</button>
+    <button id="earlyMorninDeparture" class="btn btn-secondary" onclick="changeTime('09:00', this, '1');
+    document.getElementById('payment-section').setAttribute('data-time', '09:00');">09:00</button>
+    <button id="earlyAftrnDeparture" class="btn btn-secondary" onclick="changeTime('12:00', this, '1');
+    document.getElementById('payment-section').setAttribute('data-time', '12:00');">12:00</button>
+    <button id="earlyAfteroonDeparture" class="btn btn-secondary" onclick="changeTime('14:00', this, '1');
+    document.getElementById('payment-section').setAttribute('data-time', '14:00');">14:00</button>
+</div>
+
+<div class="mt-2">
+    <div class="border-t border-zinc-200 dark:border-zinc-700 pt-4">
+        <h3 class="font-semibold text-lg mb-2">Detail Pergi</h3>
+        <div class="d-flex align-items-center mt-2">
+            <div class="flex-grow-1">
+                <div class="d-flex align-items-center gap-2">
+                    <span id="departure-time-1">07:00</span>
+                    <div class="flex-grow-1 bg-secondary" style="height: 5px;">
+                        <div id="animated-line-1" class="bg-primary" style="width: 0%; height: 100%;"></div>
+                    </div>
+                    <span id="arrival-time-1">09:00</span>
+                </div>
+                <div class="flex justify-between items-center mb-4">
+                    <p>Makassar - Pelabuhan Paotere</p>
+                    <span>Perkiraan waktu: <span id="estimated-time-1">2 Jam</span></span>
+                </div>
+                <p class="font-semibold text-lg mb-8">Sisa kouta penumpang: 25</h3>
+            </div>
+        </div>
+        <button class="bg-yellow-400 text-white px-6 py-2 rounded-lg ml-auto" id="searchButton" onclick="handleButtonDetail()">Pilih</button>
+    </div>
+</div>
+
+<div id="payment-section" class="payment-section">
+    <!-- Payment Method Section -->
+    <div class="container mt-4">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5 class="mb-0">Perjalanan anda</h5>
+          <!-- <button type="button" class="btn-close" aria-label="Close" onclick="this.parentElement.parentElement.style.display = 'none';"></button> -->
+          <button type="button" class="btn-close" aria-label="Close" onclick="handleButtonClose('payment-section')"></button>
+        </div>
+        <div class="card-body">
+          
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="berangkat-tab" data-bs-toggle="tab" data-bs-target="#berangkat" type="button" role="tab" aria-controls="berangkat" aria-selected="true">Berangkat</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="pulang-tab" data-bs-toggle="tab" data-bs-target="#pulang" type="button" role="tab" aria-controls="pulang" aria-selected="false">Pulang</button>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="berangkat" role="tabpanel" aria-labelledby="berangkat-tab">
+          <div class="p-3">
+            <div class="mb-3">
+              <h5>Makassar <i class="bi bi-arrow-right"></i> - Pulau Lanjukkang</h5>
+              <p id="display-time">07:00 - 09:00</p>
+            <script>
+              document.getElementById('display-time').textContent = document.getElementById('earlyMorningDeparture').textContent + ' - 09:00';
+            </script>
+          </div>
+          </div>
+          </div>
+          </div>
+
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade" id="pulang" role="tabpanel" aria-labelledby="pulang-tab">
+          <div class="p-3">
+            <div class="mb-3">
+              <h5>Pulau Lanjukkang <i class="bi bi-arrow-right"></i>- Makassar</h5>
+              <p id="display-time">07:00 - 09:00</p>
+            <script>
+              document.getElementById('display-time').textContent = document.getElementById('earlyMorningDeparture').textContent + ' - 09:00';
+            </script>
+          </div>
+          </div>
+        </div>
+      </div>
+    <!-- </div> -->
+  </div>
+  <div class="card mt-4">
+    <div class="card-body">
+      <h5 class="card-title">Detail Pembayaran</h5>
+      <div class="d-flex align-items-center mb-3">
+        <img src="https://placehold.co/50x50" class="me-3" alt="Icon">
+        <div>
+          <h6 class="mb-0">Regular</h6>
+          <p class="mb-0">Rp 100.000/orang</p>
+        </div>
+      </div>
+      <p class="text-muted">Orang dewasa
+        <script>
+            document.write(`(${adults}) orang`)
+        </script>
+      </p>
+      <p class="text-muted">Anak
+        <script>
+            document.write(`(${children}) orang`)
+        </script>
+      </p>
+      <div class="d-flex justify-content-between align-items-center">
+        <h5>Total</h5>
+        <h5>Rp 300.000</h5>
+      </div>
+      <br>
+      <button class="btn btn-warning w-100" onclick="showModal()">Pilih Tiket</button>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+
+<div id="show-detail" class="show-detail">
+  <div class="container mt-4">
+    <div class="card p-4"> <!-- Added p-4 and text-center classes -->
+      <div class="card-header d-flex justify-content-between align-items-center" style = "background-color: transparent; border: none; font-size: 20px; text-align: left;">
+        <h5 id="detailPenumpangModalLabel"><b>Detail Penumpang</b></h5>
+        <button type="button" class="btn-close" aria-label="Close" onclick="handleButtonClose('show-detail')"></button>
+      </div>
+      <div class="modal-body">
+        <form style = "text-align: left;">
+          <div class="mb-3">
+            <label for="firstName" class="form-label-detail text-start">Nama Lengkap</label>
+            <input type="text" class="form-control" id="firstName" required>
+          </div>
+          <button id="continueButton" class="btn btn-warning w-100" onclick="location.href='checkout.html'">Lanjutkan</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    </main>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>
+        window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts.js"></script>
+</body>
+
+</html>

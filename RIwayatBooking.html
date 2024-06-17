@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/tesstyle.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 dark:bg-zinc-900">
+    <div class="container mx-auto p-4">
+        <header class="flex justify-between items-center py-4">
+            <div class="flex items-center">
+                <img src="gambar/peka.png" alt="logo" class="img-fluid" style="width: 120px; height: 70px;">
+            </div>
+            <nav class="flex space-x-4">
+                <a href="index.html" class="text-zinc-600 dark:text-zinc-400">Beranda</a>
+                <a href="riwayat.html" class="text-zinc-600 dark:text-zinc-400">Riwayat</a>
+            </nav>
+            <div class="flex items-center space-x-2">
+                <span class="text-zinc-600 dark:text-zinc-400">Hi, Leonard!</span>
+            </div>
+        </header>
+        <main>
+            <h1 class="mb-4 text-4xl font-semi-bold text-zinc-900 dark:text-white">Detail Perjalanan</h1>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <!-- Pergi -->
+    <div class="bg-white dark:bg-zinc-800 rounded-lg shadow-md overflow-hidden">
+        <div class="px-6 py-4">
+            <div class="flex items-center justify-between">
+                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">Pergi</span>
+                <span class="text-zinc-600 dark:text-zinc-400">Sen, 17 Jun 2024</span>
+            </div>
+            <div class="mt-4">
+                <div class="flex items-center mb-4">
+                    <div class="text-2xl font-bold text-zinc-900 dark:text-white">22:15</div>
+                    <div class="ml-4">
+                        <div class="text-lg font-semibold text-zinc-900 dark:text-white" id="port-awal"></div>
+                        <div class="text-sm text-zinc-500 dark:text-zinc-400">17 Jun</div>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <div class="text-2xl font-bold text-zinc-900 dark:text-white">01:40</div>
+                    <div class="ml-4">
+                        <div class="text-lg font-semibold text-zinc-900 dark:text-white" id="port-akhir"></div>
+                        <div class="text-sm text-zinc-500 dark:text-zinc-400">18 Jun</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Pulang -->
+    <div class="bg-white dark:bg-zinc-800 rounded-lg shadow-md overflow-hidden">
+        <div class="px-6 py-4">
+            <div class="flex items-center justify-between">
+                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">Pulang</span>
+                <span class="text-zinc-600 dark:text-zinc-400">Sen, 17 Jun 2024</span>
+            </div>
+            <div class="mt-4">
+                <div class="flex items-center mb-4">
+                    <div class="text-2xl font-bold text-zinc-900 dark:text-white">22:15</div>
+                    <div class="ml-4">
+                        <div class="text-lg font-semibold text-zinc-900 dark:text-white" id="port-awal"></div>
+                        <div class="text-sm text-zinc-500 dark:text-zinc-400">17 Jun</div>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <div class="text-2xl font-bold text-zinc-900 dark:text-white">01:40</div>
+                    <div class="ml-4">
+                        <div class="text-lg font-semibold text-zinc-900 dark:text-white" id="port-akhir"></div>
+                        <div class="text-sm text-zinc-500 dark:text-zinc-400">18 Jun</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detail Pemesan -->
+    <div class="col-span-1 md:col-span-2 bg-white dark:bg-zinc-800 rounded-lg shadow-md overflow-hidden">
+        <div class="px-6 py-4">
+        <h2 class="text-2xl font-bold mb-2">Detail Pemesan</h2>
+        <p class="text-zinc-600 dark:text-zinc-400 mb-4">
+            Masukkan data diri anda
+        </p>
+        <form class="space-y-4">
+            <div class="flex items-center space-x-4">
+            <label class="flex items-center">
+                <input type="radio" name="title" class="form-radio text-blue-500" value="tuan" />
+                <span class="ml-2">Tuan</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="title" class="form-radio text-blue-500" value="nyonya" />
+                <span class="ml-2">Nyonya</span>
+            </label>
+            <label class="flex items-center">
+                <input type="radio" name="title" class="form-radio text-blue-500" value="nona" />
+                <span class="ml-2">Nona</span>
+            </label>
+            </div>
+            <input type="text" id="full-name-input" placeholder="Nama Lengkap" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" oninput="validateFullName()" />
+            <span id="name-warning-message" class="text-red-500 text-sm hidden">Nama lengkap hanya bisa berupa huruf, tanpa simbol dan angka.</span>
+        
+            <div class="flex items-center border rounded-lg overflow-hidden">
+                <select class="p-3 bg-zinc-200 dark:bg-zinc-700 border-r focus:outline-none">
+                    <option value="ID">🇮🇩</option>
+                </select>
+                <input type="tel" id="phone-input" placeholder="Nomor Telepon" class="w-full p-3 focus:outline-none" oninput="validatePhoneNumber()" />
+            </div>
+            <span id="warning-message" class="text-red-500 text-sm hidden"></span>
+            <span id="length-warning-message" class="text-red-500 text-sm hidden">Nomor telepon harus terdiri dari 6 - 13 angka.</span>                        
+        </form>
+        </div>
+    </div>
+            
+    <!-- Detail Pembayaran -->
+    <div class="col-span-1 md:col-span-2 bg-white dark:bg-zinc-800 rounded-lg shadow-md overflow-hidden">
+        <div class="px-6 py-4">
+            <h5 class="mb-4 text-xl font-bold text-zinc-900 dark:text-white">Detail Pembayaran</h5>
+            <div class="d-flex align-items-center mb-3">
+                <img src="https://placehold.co/50x50" class="me-3" alt="Icon">
+                <div>
+                    <h6 class="mb-0 text-zinc-900 dark:text-white">Regular</h6>
+                    <p class="mb-0 text-zinc-500 dark:text-zinc-400">Rp 100.000/orang</p>
+                </div>
+            </div>
+            <p class="text-muted">Orang dewasa: <span id="adult-count"></span></p>
+            <p class="text-muted">Anak: <span id="child-count"></span></p>
+    
+            <div class="d-flex justify-content-between align-items-center mt-4">
+                <h5 class="text-zinc-900 dark:text-white">Total</h5>
+                <h5 class="text-zinc-900 dark:text-white">Rp 300.000</h5>
+            </div>
+            <br>
+            <button class="btn btn-warning w-100" onclick="handleButtonPembayaran()">Pilih Tiket</button>
+        </div>
+    </div>
+    </div>
+    </main>
+    </div>
+
+    <script>
+        const portAwal = localStorage.getItem('port-awal');
+        const portAkhir = localStorage.getItem('port-akhir');
+        document.getElementById('port-awal').textContent = portAwal;
+        document.getElementById('port-akhir').textContent = portAkhir;
+
+        const adults = localStorage.getItem('orangDewasa') || '0'; // Default to '0' if null or undefined
+        const children = localStorage.getItem('anakKecil') || '0'; // Default to '0' if null or undefined
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts.js"></script>
+
+</body>
+
+</html>
+
+

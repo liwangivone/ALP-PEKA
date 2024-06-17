@@ -1,0 +1,61 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/tesstyle.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="min-h-screen bg-zinc-100 p-4">
+  <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
+    <div class="flex justify-between items-center mb-4">
+      <div class="text-zinc-500">Selesaikan dalam</div>
+      <div class="text-red-500 font-bold text-lg">00 : 25 : 39</div>
+    </div>
+    <div class="bg-white p-6 rounded-lg shadow-md mb-4">
+      <h2 class="text-xl font-semibold mb-4">Instruksi Pembayaran</h2>
+      <div class="mb-4">
+        <div class="flex items-center mb-2">
+          <img src="https://placehold.co/50x50" alt="BRIVA Logo" class="mr-2">
+          <div class="font-semibold">BRIVA</div>
+        </div>
+        <div class="bg-zinc-100 p-4 rounded-lg flex justify-between items-center">
+          <span>1420 2010 0222 4344</span>
+          <button class="text-blue-500">
+            <img src="https://placehold.co/20x20" alt="Copy Icon">
+          </button>
+        </div>
+      </div>
+      <div class="mb-4">
+        <div class="text-zinc-500">Total Pembayaran</div>
+        <div class="bg-zinc-100 p-4 rounded-lg">IDR 2.434.793</div>
+      </div>
+      <div class="text-zinc-500 text-sm mb-4">
+        <i class="fas fa-info-circle"></i> Setelah pembayaran diverifikasi, e-tiket dan bukti pembayaran akan dikirim ke alamat email terdaftar.
+      </div>
+      <div class="flex justify-between">
+        <button class="bg-yellow-500 text-white px-4 py-2 rounded-lg" onclick="handleButtonPembayaran()">Ganti Metode Pembayaran</button>
+        <button class="bg-yellow-500 text-white px-4 py-2 rounded-lg" onclick="handleButtonRiwayatPesanan()">Lihat daftar pesanan</button>
+      </div>
+    </div>
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <div class="flex justify-between items-center mb-4">
+        <div>
+          <div class="text-zinc-500">Order ID: 1272959572</div>
+          <div class="text-xl font-semibold">Jakarta ➔ Makassar</div>
+          <div class="text-zinc-500">Sen, 17 Jun 2024 • 22:15</div>
+        </div>
+        <div class="text-right">
+          <div class="text-zinc-500">Total Pembayaran</div>
+          <div class="text-xl font-semibold">IDR 2.434.793</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="scripts.js"></script>
+  </body>
+</html>
