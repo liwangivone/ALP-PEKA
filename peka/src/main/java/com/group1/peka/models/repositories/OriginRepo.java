@@ -9,5 +9,7 @@ import com.group1.peka.models.entities.Origin;
 public interface OriginRepo extends CrudRepository<Origin, Integer> {
 
     Optional<Origin> findByOriginID(int originID);
+
+    Optional<Origin> findByOriginName(String originName);
     
 }

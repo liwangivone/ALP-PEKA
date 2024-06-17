@@ -17,10 +17,4 @@ public class TicketListData {
     public TicketListData(List<?> ticket) {
         this.ticket = ticket;
     }
-    
-    // Method untuk setMessage
-    public void setMessage(String message) {
-        this.message = message;
-    }
-    
 }

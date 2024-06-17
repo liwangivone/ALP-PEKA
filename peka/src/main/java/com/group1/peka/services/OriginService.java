@@ -18,15 +18,35 @@ public class OriginService {
     private OriginRepo originRepo;
 
     public Origin createOrigin(String originName) {
-        Origin origin = new Origin(originName);
+        Optional<Origin> nameCheck = originRepo.findByOriginName(originName);
+
+        if (nameCheck.isPresent()) {
+            return null;
+        }
+
+        Origin origin = new Origin('0', originName);
+
         return originRepo.save(origin);
     }
 
     public Optional<Origin> getOriginByID(int originID) {
-        return originRepo.findById(originID);
+        return originRepo.findByOriginID(originID);
+    }
+
+    public Optional<Origin> getOriginByOriginName(String originName) {
+        return originRepo.findByOriginName(originName);
     }
     
     public Iterable<Origin> getAllOrigins() {
         return originRepo.findAll();
+    }
+
+    public Origin updateOrigin(Origin origin) {
+        return originRepo.save(origin);
+    }
+
+    public void deleteOriginByName(String originName) {
+        Optional<Origin> origin = originRepo.findByOriginName(originName);
+        origin.ifPresent(originRepo::delete);
     }
 }

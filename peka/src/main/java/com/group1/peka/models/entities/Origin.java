@@ -26,7 +26,8 @@ public class Origin {
     private String originName;
 
 
-    public Origin(String originName) {
+    public Origin(int originID, String originName) {
+        this.originID = originID;
         this.originName = originName;
     }  
 }

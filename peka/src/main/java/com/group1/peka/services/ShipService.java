@@ -17,34 +17,51 @@ public class ShipService {
     @Autowired
     private ShipRepo shipRepo;
 
-    public Ship createShip(String name, int capacity, String status) {
-        Ship ship = new Ship();
-        ship.setShipName(name); 
-        ship.setCapacity(capacity); 
-        ship.setStatus(status);
+    public Ship createShip(String shipName, int capacity, String status) {
+        Optional<Ship> nameCheck = shipRepo.findByShipName(shipName);
+
+        if (nameCheck.isPresent()) {
+            return null;
+        }
+
+        Ship ship = new Ship('0', shipName, capacity, status);
+
         return shipRepo.save(ship);
     }
 
     public Optional<Ship> getShipByID(int shipID) {
-        return shipRepo.findById(shipID);
+        return shipRepo.findByShipID(shipID);
+    }
+
+    public Optional<Ship> getShipByShipName(String shipName) {
+        return shipRepo.findByShipName(shipName);
     }
 
     public Iterable<Ship> getAllShips() {
         return shipRepo.findAll();
     }
 
-    public void reduceCapacity(int shipID, int quantity) throws Exception {
-        Optional<Ship> shipOpt = shipRepo.findById(shipID);
-        if (!shipOpt.isPresent()) {
-            throw new Exception("Ship not found");
-        }
+    public Ship updateShip(Ship ship) {
+        return shipRepo.save(ship);
+    }
+
+    public void deleteShipByName(String shipName) {
+        Optional<Ship> ship = shipRepo.findByShipName(shipName);
+        ship.ifPresent(shipRepo::delete);
+    }
+
+    // public void reduceCapacity(int shipID, int quantity) throws Exception {
+    //     Optional<Ship> shipOpt = shipRepo.findById(shipID);
+    //     if (!shipOpt.isPresent()) {
+    //         throw new Exception("Ship not found");
+    //     }
         
-        Ship ship = shipOpt.get();
-        if (ship.getCapacity() < quantity) {
-            throw new Exception("Not enough capacity");
-        }
+    //     Ship ship = shipOpt.get();
+    //     if (ship.getCapacity() < quantity) {
+    //         throw new Exception("Not enough capacity");
+    //     }
         
-        ship.setCapacity(ship.getCapacity() - quantity);
-        shipRepo.save(ship);
-    } 
+    //     ship.setCapacity(ship.getCapacity() - quantity);
+    //     shipRepo.save(ship);
+    // } 
 }

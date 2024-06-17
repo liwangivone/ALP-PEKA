@@ -9,5 +9,7 @@ import com.group1.peka.models.entities.Destination;
 public interface DestinationRepo extends CrudRepository<Destination, Integer> {
 
     Optional<Destination> findByDestinationID(int destinationID);
+
+    Optional<Destination> findByDestinationName(String destinationName);
     
 }

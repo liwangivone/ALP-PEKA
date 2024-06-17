@@ -18,17 +18,36 @@ public class DestinationService {
     private DestinationRepo destinationRepo;
 
     public Destination createDestination(String destinationName) {
-        Destination destination = new Destination();
-        destination.setDestinationName(destinationName);
+        Optional<Destination> nameCheck = destinationRepo.findByDestinationName(destinationName);
+
+        if (nameCheck.isPresent()) {
+            return null;
+        }
+
+        Destination destination = new Destination('0', destinationName);
+
         return destinationRepo.save(destination);
     }
 
     public Optional<Destination> getDestinationByID(int destinationID) {
-        return destinationRepo.findById(destinationID);
+        return destinationRepo.findByDestinationID(destinationID);
+    }
+
+    public Optional<Destination> getDestinationByDestinationName(String destinationName) {
+        return destinationRepo.findByDestinationName(destinationName);
     }
 
     public Iterable<Destination> getAllDestinations() {
         return destinationRepo.findAll();
+    }
+
+    public Destination updateDestination(Destination destination) {
+        return destinationRepo.save(destination);
+    }
+
+    public void deleteDestinationByName(String destinationName) {
+        Optional<Destination> destination = destinationRepo.findByDestinationName(destinationName);
+        destination.ifPresent(destinationRepo::delete);
     }
 }
 

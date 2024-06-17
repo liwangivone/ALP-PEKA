@@ -119,7 +119,7 @@ public class UserController {
 
         userService.deleteUserByEmail(email);
         responseData.setStatus(true);
-        responseData.getMessages().add("The user " + user.get().getName() + " is deleted");
+        responseData.getMessages().add("The user " + user.get().getName() + " is successfully deleted");
 
         return ResponseEntity.ok(responseData);
     }  

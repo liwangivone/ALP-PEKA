@@ -10,4 +10,6 @@ public interface ShipRepo extends CrudRepository<Ship, Integer> {
 
     Optional<Ship> findByShipID(int shipID);
 
+    Optional<Ship> findByShipName(String shipName);
+
 }
