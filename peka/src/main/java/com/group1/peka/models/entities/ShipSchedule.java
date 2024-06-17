@@ -15,31 +15,28 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "ship operation")
+@Table(name = "ship schedule")
 @Getter
 @Setter
 @NoArgsConstructor
-public class ShipOperation {
+public class ShipSchedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ship_operation_id")
-    private int shipOperationID;
+    @Column(name = "ship_schedule_id")
+    private int shipScheduleID;
 
     @ManyToOne
     @JoinColumn(name = "ship_id", nullable = false)
     private Ship ship;
 
     @ManyToOne
-    @JoinColumn(name = "departure_port_id", nullable = false)
-    private DeparturePort departurePort;
+    @JoinColumn(name = "origin_id", nullable = false)
+    private Origin origin;
 
     @ManyToOne
-    @JoinColumn(name = "arrival_port_id", nullable = false)
-    private ArrivalPort arrivalPort;
-
-    @Column(name = "duration", nullable = false)
-    private int duration;
+    @JoinColumn(name = "destination_id", nullable = false)
+    private Destination destination;
 
     @Column(name = "adult_price", nullable = false)
     private int adultPrice;
@@ -54,16 +51,14 @@ public class ShipOperation {
     private LocalDateTime arrivalTime;
 
 
-    public ShipOperation(int shipOperationID, Ship ship, DeparturePort departurePort, ArrivalPort arrivalPort, int duration, int adultPrice, int childPrice, LocalDateTime departureTime, LocalDateTime arrivalTime) {
-        this.shipOperationID = shipOperationID;
+    public ShipSchedule(int shipScheduleID, Ship ship, Origin origin, Destination destination, int adultPrice, int childPrice, LocalDateTime departureTime, LocalDateTime arrivalTime) {
+        this.shipScheduleID = shipScheduleID;
         this.ship = ship;
-        this.departurePort = departurePort;
-        this.arrivalPort = arrivalPort;
-        this.duration = duration;
+        this.origin = origin;
+        this.destination = destination;
         this.adultPrice = adultPrice;
         this.childPrice = childPrice;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
     }
-
 }

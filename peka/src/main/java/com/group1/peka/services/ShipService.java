@@ -17,8 +17,11 @@ public class ShipService {
     @Autowired
     private ShipRepo shipRepo;
 
-    public Ship createShip(int shipID, String name, int capacity) {
-        Ship ship = new Ship(shipID, name, capacity);
+    public Ship createShip(String name, int capacity, String status) {
+        Ship ship = new Ship();
+        ship.setShipName(name); 
+        ship.setCapacity(capacity); 
+        ship.setStatus(status);
         return shipRepo.save(ship);
     }
 
@@ -43,7 +46,5 @@ public class ShipService {
         
         ship.setCapacity(ship.getCapacity() - quantity);
         shipRepo.save(ship);
-    }
-    
-    
+    } 
 }

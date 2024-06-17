@@ -11,23 +11,22 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "destination")
+@Table(name = "origin")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Destination {
+public class Origin {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "destination_id")
-    private int destinationID;
+    @Column(name = "origin_id")
+    private int originID;
 
-    @Column(name = "destination_name", nullable = false)
-    private String destinationName;
+    @Column(name = "origin_name", nullable = false)
+    private String originName;
 
 
-    public Destination(int destinationID, String destinationName) {
-        this.destinationID = destinationID;
-        this.destinationName = destinationName;
-    }
+    public Origin(String originName) {
+        this.originName = originName;
+    }  
 }

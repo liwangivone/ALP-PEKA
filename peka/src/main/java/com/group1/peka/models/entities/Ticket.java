@@ -26,7 +26,7 @@ public class Ticket {
 
     @ManyToOne
     @JoinColumn(name = "ship_operation_id", nullable = false)
-    private ShipOperation shipOperationID;
+    private ShipSchedule shipOperationID;
 
     @ManyToOne
     @JoinColumn(name = "transaction_id", nullable = false)
@@ -41,7 +41,7 @@ public class Ticket {
     @Column(name = "passenger_type", nullable = false)
     private String passengerType;
 
-    public Ticket(int ticketID, ShipOperation shipOperationID, Transaction transactionID, int price, String passenggerName, String passengerType) {
+    public Ticket(int ticketID, ShipSchedule shipOperationID, Transaction transactionID, int price, String passenggerName, String passengerType) {
         this.ticketID = ticketID;
         this.shipOperationID = shipOperationID;
         this.transactionID = transactionID;

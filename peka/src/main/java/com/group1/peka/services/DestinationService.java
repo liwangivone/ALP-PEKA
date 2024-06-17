@@ -13,29 +13,26 @@ import jakarta.transaction.Transactional;
 @Service
 @Transactional
 public class DestinationService {
-    
+
     @Autowired
     private DestinationRepo destinationRepo;
 
-    public Destination createDestination(Destination destination) {
+    public Destination createDestination(String destinationName) {
+        Destination destination = new Destination();
+        destination.setDestinationName(destinationName);
         return destinationRepo.save(destination);
     }
 
-    public Destination updateDestination(int id, Destination destination) {
-        destination.setId(id);
-        return destinationRepo.save(destination);
-    }
-
-    public void deleteDestination(int id) {
-        destinationRepo.deleteById(id);
-    }
-
-    public Optional<Destination> getDestinationById(int id) {
-        return destinationRepo.findById(id);
+    public Optional<Destination> getDestinationByID(int destinationID) {
+        return destinationRepo.findById(destinationID);
     }
 
     public Iterable<Destination> getAllDestinations() {
         return destinationRepo.findAll();
     }
 }
+
+
+
+    
 
