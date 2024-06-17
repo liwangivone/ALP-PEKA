@@ -1,6 +1,6 @@
 # PeKa: Pesan Kapal
 
-Proyek ini berisi halaman website untuk pemesanan kapal dari kota Makassar ke pulau-pulau kecil di sekitarnya dan sebaliknya. Website ini dirancang untuk memudahkan pengguna dalam memesan tiket kapal dengan fitur-fitur yang lengkap dan user-friendly.
+Proyek ini berisi halaman website untuk pemesanan kapal dari kota Makassar ke pulau-pulau kecil di sekitarnya dan sebaliknya. Website ini Kami buat karena kurangnya platform online yang menyediakan informasi dan penjualan tiket kapal ke pulau-pulau sekitar Makassar. Sehingga, website ini dirancang untuk memudahkan pengguna dalam memesan tiket kapal ke pulau-pulau di sekitar Kota Makassar dan sebaliknya dengan fitur-fitur yang lengkap dan user-friendly
 
 ## Fitur Utama
 
