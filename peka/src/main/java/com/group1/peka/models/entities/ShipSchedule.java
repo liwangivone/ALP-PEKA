@@ -38,27 +38,27 @@ public class ShipSchedule {
     @JoinColumn(name = "destination_id", nullable = false)
     private Destination destination;
 
-    @Column(name = "adult_price", nullable = false)
-    private int adultPrice;
-
-    @Column(name = "child_price")
-    private int childPrice;    
-
     @Column(name = "departure_time", nullable = false)
     private LocalDateTime departureTime;
 
     @Column(name = "arrival_time", nullable = false)
     private LocalDateTime arrivalTime;
 
+    @Column(name = "adult_price", nullable = false)
+    private int adultPrice;
 
-    public ShipSchedule(int shipScheduleID, Ship ship, Origin origin, Destination destination, int adultPrice, int childPrice, LocalDateTime departureTime, LocalDateTime arrivalTime) {
+    @Column(name = "child_price")
+    private int childPrice;    
+
+
+    public ShipSchedule(int shipScheduleID, Ship ship, Origin origin, Destination destination, LocalDateTime departureTime, LocalDateTime arrivalTime, int adultPrice, int childPrice) {
         this.shipScheduleID = shipScheduleID;
         this.ship = ship;
         this.origin = origin;
         this.destination = destination;
-        this.adultPrice = adultPrice;
-        this.childPrice = childPrice;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
+        this.adultPrice = adultPrice;
+        this.childPrice = childPrice;
     }
 }

@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.group1.peka.dto.OriginData;
 import com.group1.peka.dto.ResponseData;
+import com.group1.peka.dto.origin.OriginData;
 import com.group1.peka.dto.origin.OriginListData;
 import com.group1.peka.models.entities.Origin;
 import com.group1.peka.services.OriginService;

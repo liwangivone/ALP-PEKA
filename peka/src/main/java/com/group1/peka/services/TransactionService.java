@@ -21,9 +21,9 @@ public class TransactionService {
     @Autowired
     private TransactionRepo transactionRepo;
 
-    public Transaction saveTransaction(int transactionID, User user, String vaNumber, int totalPrice, int passengerQuantity, LocalDateTime transactionTime) {
+    public Transaction createTransaction(User user, String vaNumber, int totalPrice, int passengerQuantity, LocalDateTime transactionTime) {
         Transaction transaction = new Transaction(
-            transactionID, 
+            '0', 
             user, 
             vaNumber, 
             totalPrice, 
