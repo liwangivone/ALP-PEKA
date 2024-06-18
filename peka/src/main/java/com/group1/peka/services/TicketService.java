@@ -19,10 +19,10 @@ public class TicketService {
     @Autowired
     private TicketRepo ticketRepo;
 
-    public Ticket saveTicket(int ticketID, ShipSchedule shipOperation, Transaction transaction, int price, String passengerName, String passengerType) {
+    public Ticket createTicket(ShipSchedule shipSchedule, Transaction transaction, int price, String passengerName, String passengerType) {
         Ticket ticket = new Ticket(
-            ticketID, 
-            shipOperation, 
+            '0', 
+            shipSchedule, 
             transaction, 
             price,  
             passengerName, 
@@ -31,11 +31,21 @@ public class TicketService {
         return ticketRepo.save(ticket);
     }
 
+    public Ticket updateTicket(Ticket existingTicket, ShipSchedule shipSchedule, Transaction transaction, int price, String passengerName, String passengerType) {
+        existingTicket.setShipSchedule(shipSchedule);
+        existingTicket.setTransaction(transaction);
+        existingTicket.setPrice(price);
+        existingTicket.setPassengerName(passengerName);
+        existingTicket.setPassengerType(passengerType);
+
+        return ticketRepo.save(existingTicket);
+    }
+
     public Optional<Ticket> getTicketByID(int ticketID) {
         return ticketRepo.findById(ticketID);
     }
     
-    public void deleteTicketByID(int id) {
-        ticketRepo.deleteById(id);
+    public void deleteTicketByID(int ticketID) {
+        ticketRepo.deleteById(ticketID);
     }
 }

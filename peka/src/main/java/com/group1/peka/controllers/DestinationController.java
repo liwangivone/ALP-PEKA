@@ -52,7 +52,7 @@ public class DestinationController {
         responseData.setPayload(new DestinationListData(result));
 
         return ResponseEntity.ok(responseData);
-        }
+    }
 
     @GetMapping("/id")
     public ResponseEntity<ResponseData<DestinationListData>> getDestinationByID(

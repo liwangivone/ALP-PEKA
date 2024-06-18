@@ -25,12 +25,12 @@ public class Ticket {
     private int ticketID;
 
     @ManyToOne
-    @JoinColumn(name = "ship_operation_id", nullable = false)
-    private ShipSchedule shipOperationID;
+    @JoinColumn(name = "ship_schedule_id", nullable = false)
+    private ShipSchedule shipSchedule;
 
     @ManyToOne
     @JoinColumn(name = "transaction_id", nullable = false)
-    private Transaction transactionID;
+    private Transaction transaction;
 
     @Column(name = "price", nullable = false)
     private int price;
@@ -41,12 +41,12 @@ public class Ticket {
     @Column(name = "passenger_type", nullable = false)
     private String passengerType;
 
-    public Ticket(int ticketID, ShipSchedule shipOperationID, Transaction transactionID, int price, String passenggerName, String passengerType) {
+    public Ticket(int ticketID, ShipSchedule shipSchedule, Transaction transaction, int price, String passenggerName, String passengerType) {
         this.ticketID = ticketID;
-        this.shipOperationID = shipOperationID;
-        this.transactionID = transactionID;
+        this.shipSchedule = shipSchedule;
+        this.transaction = transaction;
         this.price = price;
         this.passengerName = passenggerName;
         this.passengerType = passengerType;
-    }    
+    }
 }
