@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pengeditan Asal dan Destinasi</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h2 class="text-center">Form Pengeditan Destinasi</h2>
+                <form>
+                    <div class="form-group row">
+                        <label for="idDestinationRemove" class="col-md-4 col-form-label text-md-left">ID Destinasi:</label>
+                        <div class="col-md-8">
+                            <select id="idDestinationRemove" class="form-control" required>
+                                <option>Makassar</option>
+                                <option>Lanjukkang</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="namaDestinasiAdd" class="col-md-4 col-form-label text-md-left">Nama Destinasi Baru:</label>
+                        <div class="col-md-8">
+                            <input type="text" id="namaDestinasiAdd" class="form-control" placeholder="Nama Destinasi Baru" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12 text-right">
+                            <button type="submit" class="btn btn-primary">Ubah</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

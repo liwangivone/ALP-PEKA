@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pengeditan Jadwal Kapal</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h2 class="text-center">Form Pengeditan Jadwal Kapal</h2> 
+                <form id="jadwalKapalForm">
+                    <div class="form-group row">
+                        <label for="idOperationRemove" class="col-md-4 col-form-label text-md-left">ID Jadwal Kapal:</label>
+                        <div class="col-md-8">
+                            <select id="idOperationRemove" class="form-control" required>
+                                <option>OP10001</option>
+                                <option>OP10002</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="idShipAdd" class="col-md-4 col-form-label text-md-left">ID Kapal:</label>
+                        <div class="col-md-8">
+                            <select id="idShipAdd" class="form-control" required>
+                                <option>IS10001</option>
+                                <option>IS10002</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="idDeparturePort" class="col-md-4 col-form-label">ID Keberangkatan:</label>
+                        <div class="col-md-8">
+                            <select id="idDeparturePort" class="form-control" required>
+                                <option value="DP001">DP001 - Makassar</option>
+                                <option value="DP002">DP002 - Lanjukkang</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="idArrivalPort" class="col-md-4 col-form-label">ID Kedatangan:</label>
+                        <div class="col-md-8">
+                            <select id="idArrivalPort" class="form-control" required>
+                                <option value="AP001">AP001 - Makassar</option>
+                                <option value="AP002">AP002 - Lanjukkang</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="departureDate" class="col-md-4 col-form-label">Tanggal Keberangkatan Baru:</label>
+                        <div class="col-md-8">
+                            <input type="date" id="departureDate" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="departureTimeAdd" class="col-md-4 col-form-label text-md-left">Waktu Keberangkatan Baru:</label>
+                        <div class="col-md-8">
+                            <input type="time" id="departureTimeAdd" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="arrivalTimeAdd" class="col-md-4 col-form-label text-md-left">Waktu Kedatangan Baru:</label>
+                        <div class="col-md-8">
+                            <input type="time" id="arrivalTimeAdd" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="hargaDewasa" class="col-md-4 col-form-label">Harga Baru Dewasa:</label>
+                        <div class="col-md-8">
+                            <select id="hargaDewasa" class="form-control" required>
+                                <option value="50000">50.000</option>
+                                <option value="100000">100.000</option>
+                                <option value="150000">150.000</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="hargaAnak" class="col-md-4 col-form-label">Harga Baru Anak:</label>
+                        <div class="col-md-8">
+                            <select id="hargaAnak" class="form-control" required>
+                                <option value="50000">50.000</option>
+                                <option value="100000">100.000</option>
+                                <option value="150000">150.000</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12 text-right">
+                            <button type="submit" class="btn btn-primary">Tambah</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get today's date in YYYY-MM-DD format
+        var today = new Date().toISOString().split('T')[0];
+        document.getElementById("departureDate").setAttribute("min", today);
+
+        // Validate departure and arrival times
+        document.getElementById("jadwalKapalForm").addEventListener("submit", function(event) {
+            var departureDate = document.getElementById("departureDate").value;
+            var departureTime = document.getElementById("departureTimeAdd").value;
+            var arrivalTime = document.getElementById("arrivalTimeAdd").value;
+
+            var departureDateTime = new Date(departureDate + "T" + departureTime);
+            var arrivalDateTime = new Date(departureDate + "T" + arrivalTime);
+
+            if (departureDateTime >= arrivalDateTime) {
+                alert("Departure date and time must be earlier than arrival date and time.");
+                event.preventDefault();
+            }
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

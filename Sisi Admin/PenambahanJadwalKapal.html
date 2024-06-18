@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Penambahan Jadwal Kapal</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h2 class="text-center">Form Penambahan Jadwal Kapal</h2>
+                <form id="jadwalKapalForm">
+                    <div class="form-group row">
+                        <label for="idShip" class="col-md-4 col-form-label">ID Kapal:</label>
+                        <div class="col-md-8">
+                            <select id="idShip" class="form-control" required>
+                                <option value="IS10001">IS10001</option>
+                                <option value="IS10002">IS10002</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="idDeparturePort" class="col-md-4 col-form-label">ID Keberangkatan:</label>
+                        <div class="col-md-8">
+                            <select id="idDeparturePort" class="form-control" required>
+                                <option value="DP001">DP001 - Makassar</option>
+                                <option value="DP002">DP002 - Lanjukkang</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="idArrivalPort" class="col-md-4 col-form-label">ID Kedatangan:</label>
+                        <div class="col-md-8">
+                            <select id="idArrivalPort" class="form-control" required>
+                                <option value="AP001">AP001 - Makassar</option>
+                                <option value="AP002">AP002 - Lanjukkang</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="departureDate" class="col-md-4 col-form-label">Tanggal Keberangkatan:</label>
+                        <div class="col-md-8">
+                            <input type="date" id="departureDate" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="departureTime" class="col-md-4 col-form-label">Waktu Keberangkatan:</label>
+                        <div class="col-md-8">
+                            <input type="time" id="departureTime" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="arrivalTime" class="col-md-4 col-form-label">Waktu Kedatangan:</label>
+                        <div class="col-md-8">
+                            <input type="time" id="arrivalTime" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="hargaDewasa" class="col-md-4 col-form-label">Harga Baru Dewasa:</label>
+                        <div class="col-md-8">
+                            <select id="hargaDewasa" class="form-control" required>
+                                <option value="50000">50.000</option>
+                                <option value="100000">100.000</option>
+                                <option value="150000">150.000</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="hargaAnak" class="col-md-4 col-form-label">Harga Baru Anak:</label>
+                        <div class="col-md-8">
+                            <select id="hargaAnak" class="form-control" required>
+                                <option value="50000">50.000</option>
+                                <option value="100000">100.000</option>
+                                <option value="150000">150.000</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12 text-right">
+                            <button type="submit" class="btn btn-primary">Tambah</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get today's date in YYYY-MM-DD format
+        var today = new Date().toISOString().split('T')[0];
+        document.getElementById("departureDate").setAttribute("min", today);
+
+        // Validate departure and arrival times
+        document.getElementById("jadwalKapalForm").addEventListener("submit", function(event) {
+            var departureDate = document.getElementById("departureDate").value;
+            var departureTime = document.getElementById("departureTime").value;
+            var arrivalTime = document.getElementById("arrivalTime").value;
+
+            var departureDateTime = new Date(departureDate + "T" + departureTime);
+            var arrivalDateTime = new Date(departureDate + "T" + arrivalTime);
+
+            if (departureDateTime >= arrivalDateTime) {
+                alert("Departure date and time must be earlier than arrival date and time.");
+                event.preventDefault();
+            }
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
