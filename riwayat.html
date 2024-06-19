@@ -29,9 +29,6 @@
         .status-badge {
             font-size: 0.9em;
         }
-        /* .navbar-nav {
-            margin: 0 auto;
-        } */
         .card-header h5 {
             margin: 0;
         }
@@ -45,7 +42,7 @@
             height: auto;
         }
         .detail-pesanan {
-            font-size: 0.85em; /* Adjust the size as needed */
+            font-size: 0.85em;
         }
         /* Add this to ensure text does not overflow */
         .table td, .table th {
@@ -55,6 +52,40 @@
         }
         .table-responsive {
             overflow-x: auto;
+        }
+        /* Animations */
+        @keyframes slideDown {
+            from {
+                height: 0;
+                opacity: 0;
+            }
+            to {
+                height: var(--target-height);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                height: var(--target-height);
+                opacity: 1;
+            }
+            to {
+                height: 0;
+                opacity: 0;
+            }
+        }
+
+        .collapse-anim {
+            overflow: hidden;
+        }
+
+        .slide-down {
+            animation: slideDown 0.3s ease forwards;
+        }
+
+        .slide-up {
+            animation: slideUp 0.3s ease forwards;
         }
     </style>
 </head>
@@ -69,7 +100,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" href="index.html">Beranda</a>
                     </li>
@@ -77,7 +108,7 @@
                         <a class="nav-link active" aria-current="page" href="riwa">Riwayat</a>
                     </li>
                 </ul>
-                <div class="dropdown">
+                <div class="dropdown ms-3">
                     <button class="btn btn-light dropdown-toggle d-flex align-items-center" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         Hi, Leonard!
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle ms-2" viewBox="0 0 16 16">
@@ -181,7 +212,7 @@
                         <td>${booking.price}</td>
                         <td><span class="badge ${booking.status === 'Selesai' ? 'bg-success' : 'bg-warning'} status-badge">${booking.status}</span></td>
                     `;
-                    row.addEventListener('click', () => toggleBookingDetails(booking));
+                    row.addEventListener('click', () => toggleBookingDetails(row, booking));
                     bookingList.appendChild(row);
                 });
             } else {
@@ -189,16 +220,16 @@
             }
         }
 
-        function toggleBookingDetails(booking) {
-            const bookingList = document.getElementById('booking-list');
+        function toggleBookingDetails(row, booking) {
             const existingDetails = document.getElementById(`details-${booking.orderId}`);
             if (existingDetails) {
-                existingDetails.remove();
+                existingDetails.classList.replace('slide-down', 'slide-up');
+                setTimeout(() => existingDetails.remove(), 300);
             } else {
                 const detailsRow = document.createElement('tr');
                 detailsRow.id = `details-${booking.orderId}`;
-                detailsRow.classList.add('booking-details', 'detail-pesanan');
-                
+                detailsRow.classList.add('booking-details', 'detail-pesanan', 'collapse-anim', 'slide-down');
+
                 // Create a string for the ticket owners
                 let ownersDetails = '<p><strong>Detail Pemilik Tiket:</strong></p>';
                 booking.owners.forEach((owner, index) => {
@@ -210,7 +241,7 @@
                         <div class="row">
                             <div class="col-12 col-md-6 p-2">
                                 <p><strong>Order ID:</strong> ${booking.orderId}</p>
-                                <p><strong>Nama Pemilik Tiket:</strong> ${booking.ticketOwner}</p>
+                                <p><strong>Nama Pemilik Tiket:</strong> ${booking.ticketOwner}</ap>
                                 ${ownersDetails}
                             </div>
                             <div class="col-12 col-md-6 p-2">
@@ -220,7 +251,10 @@
                         </div>
                     </td>
                 `;
-                bookingList.insertBefore(detailsRow, bookingList.querySelector(`tr:nth-child(${Array.from(bookingList.children).indexOf(detailsRow) + 2})`));
+
+                // Calculate and set the target height for the animation
+                detailsRow.style.setProperty('--target-height', `${detailsRow.scrollHeight}px`);
+                row.parentNode.insertBefore(detailsRow, row.nextSibling);
             }
         }
     </script>
