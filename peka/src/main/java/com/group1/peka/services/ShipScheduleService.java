@@ -47,11 +47,21 @@ public class ShipScheduleService {
         return shipScheduleRepo.save(existingShipSchedule);
     }
 
+    public Iterable<ShipSchedule> getAllShipSchedule() {
+        return shipScheduleRepo.findAll();
+    }
+
     public Optional<ShipSchedule> getShipScheduleByID(int shipScheduleID) {
         return shipScheduleRepo.findById(shipScheduleID);
     }
 
-    public void deleteShipSchedule(int shipScheduleID) {
-        shipScheduleRepo.deleteById(shipScheduleID);
+    public boolean deleteShipSchedule(int shipScheduleID) {
+        Optional<ShipSchedule> shipSchedule = shipScheduleRepo.findById(shipScheduleID);
+        if (shipSchedule.isPresent()) {
+            shipScheduleRepo.delete(shipSchedule.get());
+            return true;
+        }
+
+        return false;
     }
 }

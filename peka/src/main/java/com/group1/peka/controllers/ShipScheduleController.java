@@ -3,7 +3,9 @@ package com.group1.peka.controllers;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -55,6 +57,30 @@ public class ShipScheduleController {
 
         ResponseData<ShipSchedule> responseData = new ResponseData<>();
         
+        // Get all IDs for validation
+        List<Integer> allShipIDs = shipService.getAllShips().stream().map(Ship::getShipID).collect(Collectors.toList());
+        List<Integer> allOriginIDs = originService.getAllOrigins().stream().map(Origin::getOriginID).collect(Collectors.toList());
+        List<Integer> allDestinationIDs = destinationService.getAllDestinations().stream().map(Destination::getDestinationID).collect(Collectors.toList());
+
+        // Validate the provided IDs
+        if (!allShipIDs.contains(shipID)) {
+            responseData.setStatus(false);
+            responseData.getMessages().add("Ship with ID " + shipID + " not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseData);
+        }
+
+        if (!allOriginIDs.contains(originID)) {
+            responseData.setStatus(false);
+            responseData.getMessages().add("Origin with ID " + originID + " not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseData);
+        }
+
+        if (!allDestinationIDs.contains(destinationID)) {
+            responseData.setStatus(false);
+            responseData.getMessages().add("Destination with ID " + destinationID + " not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseData);
+        }
+
         // Fetch the related entities
         Optional<Ship> ship = shipService.getShipByID(shipID);
         Optional<Origin> origin = originService.getOriginByID(originID);
@@ -97,21 +123,40 @@ public class ShipScheduleController {
         }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ResponseData<ShipSchedule>> getAllShipScheduleByID(@PathVariable("id") int shipScheduleID) {
-        ResponseData<ShipSchedule> responseData = new ResponseData<>();
+    @GetMapping("/all")
+    public ResponseEntity<ResponseData<Iterable<ShipSchedule>>> getAllShipScheduleS() {
+        ResponseData<Iterable<ShipSchedule>> responseData = new ResponseData<>();
         try {
-            Optional<ShipSchedule> shipSchedule = shipScheduleService.getShipScheduleByID(shipScheduleID);
+            Iterable<ShipSchedule> shipSchedule = shipScheduleService.getAllShipSchedule();
 
-            if (shipSchedule.isPresent()) {
+                responseData.setStatus(true);
+                responseData.setPayload(shipSchedule);
+                return ResponseEntity.ok(responseData);
+    
+            
+        } catch (Exception e) {
+            responseData.setStatus(false);
+            responseData.getMessages().add("Internal server error: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseData);
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getAllShipSchedulesById(@PathVariable int id) {
+        ResponseData<Object> responseData = new ResponseData<>();
+        try {
+            Optional<ShipSchedule> shipSchedule = shipScheduleService.getShipScheduleByID(id);
+            if(shipSchedule.isPresent()) {
                 responseData.setStatus(true);
                 responseData.setPayload(shipSchedule.get());
                 return ResponseEntity.ok(responseData);
             } else {
-                responseData.setStatus(false);
-                responseData.getMessages().add("Ship schedule not found");
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseData);
+                responseData.setStatus(true);
+                responseData.getMessages().add("Ship Schedule Not Found");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseData);
             }
+    
+            
         } catch (Exception e) {
             responseData.setStatus(false);
             responseData.getMessages().add("Internal server error: " + e.getMessage());
@@ -177,24 +222,27 @@ public class ShipScheduleController {
     }
 
     // Method to delete ShipSchedule by ID
-    @DeleteMapping("/admin/delete/{id}")
-    public ResponseEntity<ResponseData<ShipSchedule>> deleteShipScheduleByID(@PathVariable("id") int shipScheduleID) {
+    @DeleteMapping("/id")
+    public ResponseEntity<ResponseData<ShipSchedule>> delete(
+            @RequestParam int shipScheduleID) {
+
         ResponseData<ShipSchedule> responseData = new ResponseData<>();
-        Optional<ShipSchedule> shipSchedule = shipScheduleService.getShipScheduleByID(shipScheduleID);
+        
+        boolean isDeleted = shipScheduleService.deleteShipSchedule(shipScheduleID);
 
-        if (shipSchedule.isPresent()) {
-            shipScheduleService.deleteShipSchedule(shipScheduleID);
-            responseData.setStatus(true);
-            responseData.getMessages().add("Ship schedule successfully deleted");
-
-            return ResponseEntity.ok(responseData);
-        } else {
+        if (!isDeleted) {
             responseData.setStatus(false);
             responseData.getMessages().add("Ship schedule not found");
 
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseData);
+
         }
-    }
+
+        responseData.setStatus(true);
+        responseData.getMessages().add("The ship schedule with ID " + shipScheduleID + " is successfully deleted");
+
+        return ResponseEntity.ok(responseData);
+}
 }
         
    

@@ -1,5 +1,6 @@
 package com.group1.peka.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +38,8 @@ public class OriginService {
         return originRepo.findByOriginName(originName);
     }
     
-    public Iterable<Origin> getAllOrigins() {
-        return originRepo.findAll();
+    public List<Origin> getAllOrigins() {
+        return (List<Origin>) originRepo.findAll();
     }
 
     public Origin updateOrigin(Origin origin) {

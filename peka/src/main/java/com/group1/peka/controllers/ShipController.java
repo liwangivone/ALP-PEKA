@@ -83,6 +83,27 @@ public class ShipController {
         responseData.setPayload(new ShipListData(result));
 
         return ResponseEntity.ok(responseData);
+    }
+
+    @GetMapping("/all")
+        public ResponseEntity<ResponseData<ShipListData>> getAllShips() {
+            ResponseData<ShipListData> responseData = new ResponseData<>();
+            List<ShipData> result = new ArrayList<>();
+        
+            Iterable<Ship> ships = shipService.getAllShips();
+    
+            for (Ship ship : ships) {
+                result.add(new ShipData(
+                        ship.getShipID(),
+                        ship.getShipName(),
+                        ship.getCapacity(),
+                        ship.getStatus()));
+            }
+        
+            responseData.setStatus(true);
+            responseData.setPayload(new ShipListData(result));
+        
+            return ResponseEntity.ok(responseData);
         }
 
     @PutMapping("/id")

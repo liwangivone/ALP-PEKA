@@ -1,5 +1,6 @@
 package com.group1.peka.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +38,8 @@ public class ShipService {
         return shipRepo.findByShipName(shipName);
     }
 
-    public Iterable<Ship> getAllShips() {
-        return shipRepo.findAll();
+    public List<Ship> getAllShips() {
+        return (List<Ship>) shipRepo.findAll();
     }
 
     public Ship updateShip(Ship ship) {
