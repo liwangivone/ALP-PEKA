@@ -1,5 +1,6 @@
 package com.group1.peka.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +38,8 @@ public class DestinationService {
         return destinationRepo.findByDestinationName(destinationName);
     }
 
-    public Iterable<Destination> getAllDestinations() {
-        return destinationRepo.findAll();
+    public List<Destination> getAllDestinations() {
+        return (List<Destination>) destinationRepo.findAll();
     }
 
     public Destination updateDestination(Destination destination) {
