@@ -45,9 +45,13 @@ public class DestinationService {
         return destinationRepo.save(destination);
     }
 
-    public void deleteDestinationByName(String destinationName) {
-        Optional<Destination> destination = destinationRepo.findByDestinationName(destinationName);
-        destination.ifPresent(destinationRepo::delete);
+    public boolean deleteDestinationByIdAndName(int destinationID, String destinationName) {
+        Optional<Destination> destination = destinationRepo.findById(destinationID);
+        if (destination.isPresent() && destination.get().getDestinationName().equals(destinationName)) {
+            destinationRepo.delete(destination.get());
+            return true;
+        }
+        return false;
     }
 }
 

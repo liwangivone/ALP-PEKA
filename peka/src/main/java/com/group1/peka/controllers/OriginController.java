@@ -45,7 +45,7 @@ public class OriginController {
         }
 
         result.add(new OriginData(
-            '0',
+            originCheck.getOriginID(),
             originCheck.getOriginName()));
 
         responseData.setStatus(true);
@@ -65,12 +65,12 @@ public class OriginController {
         if (!origin.isPresent()) {
             responseData.setStatus(false);
             responseData.getMessages().add("Origin not found");
-
+            
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseData);
         }
-
+    
         result.add(new OriginData(
-            '0',
+            origin.get().getOriginID(),
             origin.get().getOriginName()));
 
         responseData.setStatus(true);
@@ -78,6 +78,25 @@ public class OriginController {
 
         return ResponseEntity.ok(responseData);
         }
+
+    @GetMapping("/all")
+        public ResponseEntity<ResponseData<OriginListData>> getAllOrigins() {
+            ResponseData<OriginListData> responseData = new ResponseData<>();
+            List<OriginData> result = new ArrayList<>();
+        
+            Iterable<Origin> origins = originService.getAllOrigins();
+        
+            for (Origin origin : origins) {
+                result.add(new OriginData(
+                        origin.getOriginID(),
+                        origin.getOriginName()));
+            }
+
+            responseData.setStatus(true);
+            responseData.setPayload(new OriginListData(result));
+        
+            return ResponseEntity.ok(responseData);
+    }  
 
     @PutMapping("/id")
     public ResponseEntity<ResponseData<OriginListData>> updateOrigin (
@@ -110,23 +129,24 @@ public class OriginController {
         return ResponseEntity.ok(responseData);
     }
 
-    @DeleteMapping("/name")
-    public ResponseEntity<ResponseData<Origin>> delete (
+    @DeleteMapping("/id/name")
+    public ResponseEntity<ResponseData<Origin>> delete(
+        @RequestParam int originID,
         @RequestParam String originName) {
+
         ResponseData<Origin> responseData = new ResponseData<>();
 
-        Optional<Origin> origin = originService.getOriginByOriginName(originName);
+        boolean isDeleted = originService.deleteOriginByIdAndName(originID, originName);
 
-        if (!origin.isPresent()) {
+        if (!isDeleted) {
             responseData.setStatus(false);
-            responseData.getMessages().add("Origin not found");
+            responseData.getMessages().add("Origin not found or name does not match");
 
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseData);
         }
 
-        originService.deleteOriginByName(originName);
         responseData.setStatus(true);
-        responseData.getMessages().add("The origin " + origin.get().getOriginName() + " is successfully deleted");
+        responseData.getMessages().add("The origin with ID " + originID + " and name " + originName + " is successfully deleted");
 
         return ResponseEntity.ok(responseData);
     }
