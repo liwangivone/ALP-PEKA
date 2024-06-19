@@ -45,8 +45,12 @@ public class OriginService {
         return originRepo.save(origin);
     }
 
-    public void deleteOriginByName(String originName) {
-        Optional<Origin> origin = originRepo.findByOriginName(originName);
-        origin.ifPresent(originRepo::delete);
+    public boolean deleteOriginByIdAndName(int originID, String originName) {
+        Optional<Origin> origin = originRepo.findById(originID);
+        if (origin.isPresent() && origin.get().getOriginName().equals(originName)) {
+            originRepo.delete(origin.get());
+            return true;
+        }
+        return false;
     }
 }

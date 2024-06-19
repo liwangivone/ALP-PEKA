@@ -45,7 +45,7 @@ public class DestinationController {
         }
 
         result.add(new DestinationData(
-            '0',
+            destinationCheck.getDestinationID(),
             destinationCheck.getDestinationName()));
 
         responseData.setStatus(true);
@@ -70,7 +70,7 @@ public class DestinationController {
         }
 
         result.add(new DestinationData(
-            '0',
+            destination.get().getDestinationID(),
             destination.get().getDestinationName()));
 
         responseData.setStatus(true);
@@ -79,6 +79,25 @@ public class DestinationController {
         return ResponseEntity.ok(responseData);
         }
 
+    @GetMapping("/all")
+        public ResponseEntity<ResponseData<DestinationListData>> getAllDestinations() {
+            ResponseData<DestinationListData> responseData = new ResponseData<>();
+            List<DestinationData> result = new ArrayList<>();
+        
+            Iterable<Destination> destinations = destinationService.getAllDestinations();
+        
+            for (Destination destination : destinations) {
+                result.add(new DestinationData(
+                        destination.getDestinationID(),
+                        destination.getDestinationName()));
+            }
+        
+            responseData.setStatus(true);
+            responseData.setPayload(new DestinationListData(result));
+        
+            return ResponseEntity.ok(responseData);
+        }
+        
     @PutMapping("/id")
     public ResponseEntity<ResponseData<DestinationListData>> updateDestination (
             @RequestParam int destinationID,
@@ -110,23 +129,24 @@ public class DestinationController {
         return ResponseEntity.ok(responseData);
     }
 
-    @DeleteMapping("/name")
-    public ResponseEntity<ResponseData<Destination>> delete (
-        @RequestParam String destinationName) {
+    @DeleteMapping("/id/name")
+    public ResponseEntity<ResponseData<Destination>> delete(
+            @RequestParam int destinationID,
+            @RequestParam String destinationName) {
+
         ResponseData<Destination> responseData = new ResponseData<>();
 
-        Optional<Destination> destination = destinationService.getDestinationByDestinationName(destinationName);
+        boolean isDeleted = destinationService.deleteDestinationByIdAndName(destinationID, destinationName);
 
-        if (!destination.isPresent()) {
-            responseData.setStatus(false);
-            responseData.getMessages().add("Destination not found");
+        if (!isDeleted) {
+                responseData.setStatus(false);
+                responseData.getMessages().add("Destination not found or name does not match");
 
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseData);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseData);
         }
 
-        destinationService.deleteDestinationByName(destinationName);
         responseData.setStatus(true);
-        responseData.getMessages().add("The destination " + destination.get().getDestinationName() + " is successfully deleted");
+        responseData.getMessages().add("The destination with ID " + destinationID + " and name " + destinationName + " is successfully deleted");
 
         return ResponseEntity.ok(responseData);
     }

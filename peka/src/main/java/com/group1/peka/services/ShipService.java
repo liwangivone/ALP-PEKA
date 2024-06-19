@@ -45,23 +45,12 @@ public class ShipService {
         return shipRepo.save(ship);
     }
 
-    public void deleteShipByName(String shipName) {
-        Optional<Ship> ship = shipRepo.findByShipName(shipName);
-        ship.ifPresent(shipRepo::delete);
+    public boolean deleteShipByIdAndName(int shipID, String shipName) {
+        Optional<Ship> ship = shipRepo.findById(shipID);
+        if (ship.isPresent() && ship.get().getShipName().equals(shipName)) {
+            shipRepo.delete(ship.get());
+            return true;
+        }
+        return false;
     }
-
-    // public void reduceCapacity(int shipID, int quantity) throws Exception {
-    //     Optional<Ship> shipOpt = shipRepo.findById(shipID);
-    //     if (!shipOpt.isPresent()) {
-    //         throw new Exception("Ship not found");
-    //     }
-        
-    //     Ship ship = shipOpt.get();
-    //     if (ship.getCapacity() < quantity) {
-    //         throw new Exception("Not enough capacity");
-    //     }
-        
-    //     ship.setCapacity(ship.getCapacity() - quantity);
-    //     shipRepo.save(ship);
-    // } 
 }

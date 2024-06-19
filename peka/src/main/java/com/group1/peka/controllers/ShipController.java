@@ -47,7 +47,7 @@ public class ShipController {
         }
 
         result.add(new ShipData(
-            '0',
+            shipCheck.getShipID(),
             shipCheck.getShipName(),
             capacity,
             status));
@@ -74,7 +74,7 @@ public class ShipController {
         }
 
         result.add(new ShipData(
-            '0',
+            ship.get().getShipID(),
             ship.get().getShipName(),
             ship.get().getCapacity(),
             ship.get().getStatus()));
@@ -122,24 +122,26 @@ public class ShipController {
         return ResponseEntity.ok(responseData);
     }
 
-    @DeleteMapping("/name")
-    public ResponseEntity<ResponseData<Ship>> delete (
+    @DeleteMapping("/id/name")
+    public ResponseEntity<ResponseData<Ship>> delete(
+        @RequestParam int shipID,
         @RequestParam String shipName) {
+
         ResponseData<Ship> responseData = new ResponseData<>();
 
-        Optional<Ship> ship = shipService.getShipByShipName(shipName);
+        boolean isDeleted = shipService.deleteShipByIdAndName(shipID, shipName);
 
-        if (!ship.isPresent()) {
+        if (!isDeleted) {
             responseData.setStatus(false);
-            responseData.getMessages().add("Ship not found");
+            responseData.getMessages().add("Ship not found or name does not match");
 
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseData);
         }
 
-        shipService.deleteShipByName(shipName);
         responseData.setStatus(true);
-        responseData.getMessages().add("The ship " + ship.get().getShipName() + " is successfully deleted");
+        responseData.getMessages().add("The ship with ID " + shipID + " and name " + shipName + " is successfully deleted");
 
         return ResponseEntity.ok(responseData);
     }
+
 }
