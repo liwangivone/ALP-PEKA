@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Penambahan Kapal</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h2 class="text-center">Form Penambahan Kapal</h2>
+                <form id="shipForm">
+                    <div class="form-group row">
+                        <label for="namaKapal" class="col-md-4 col-form-label text-md-left">Nama Kapal:</label>
+                        <div class="col-md-8">
+                            <input type="text" id="namaKapal" class="form-control" placeholder="Nama Kapal" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="kapasitas" class="col-md-4 col-form-label text-md-left">Kapasitas:</label>
+                        <div class="col-md-8">
+                            <input type="number" id="kapasitas" class="form-control" placeholder="Kapasitas" min="1" oninput="validity.valid||(value='');" required>
+                            <small id="kapasitasNotice" class="form-text text-danger" style="display: none;">Kapasitas hanya dapat diisi dengan angka lebih besar dari 0.</small>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="statusKapal" class="col-md-4 col-form-label text-md-left">Status Kapal:</label>
+                        <div class="col-md-8">
+                            <select id="statusKapal" class="form-control" required>
+                                <option value="Tersedia">Tersedia</option>
+                                <option value="Tidak Tersedia">Tidak Tersedia</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12 text-right">
+                            <button type="submit" class="btn btn-primary">Tambah</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Validate inputs and handle form submission
+        document.getElementById('shipForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            var isValid = true;
+
+            var kapasitasInput = document.getElementById('kapasitas');
+            var kapasitasNotice = document.getElementById('kapasitasNotice');
+            if (isNaN(kapasitasInput.value) || kapasitasInput.value < 1) {
+                kapasitasNotice.style.display = "block";
+                isValid = false;
+            } else {
+                kapasitasNotice.style.display = "none";
+            }
+
+            if (!isValid) {
+                return;
+            }
+
+            var namaKapal = document.getElementById('namaKapal').value;
+            var kapasitas = document.getElementById('kapasitas').value;
+            var statusKapal = document.getElementById('statusKapal').value;
+
+            // Construct URL with query parameters
+            var url = `https://sf785k8l-8080.asse.devtunnels.ms/api/ship/admin/add?shipName=${encodeURIComponent(namaKapal)}&capacity=${encodeURIComponent(kapasitas)}&status=${encodeURIComponent(statusKapal)}`;
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Success:', data);
+                alert('Kapal berhasil ditambahkan!');
+                // Reset form setelah sukses
+                document.getElementById('shipForm').reset();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan. Coba lagi.');
+            });
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Penambahan Asal</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h2 class="text-center">Form Penambahan Asal</h2>
+                <form id="formAsal">
+                    <div class="form-group row">
+                        <label for="namaAsal" class="col-md-4 col-form-label text-md-left">Nama Asal:</label>
+                        <div class="col-md-8">
+                            <input type="text" id="namaAsal" name="namaAsal" class="form-control" placeholder="Nama Asal" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12 text-right">
+                            <button type="submit" class="btn btn-primary">Tambah</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+    document.getElementById('formAsal').addEventListener('submit', function(event) {
+        event.preventDefault(); // Mencegah pengiriman form default
+
+        var namaAsal = document.getElementById('namaAsal').value;
+
+        // Construct URL with query parameter
+        var url = `https://sf785k8l-8080.asse.devtunnels.ms/api/origin/admin/add?originName=${encodeURIComponent(namaAsal)}`;
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Success:', data);
+            alert('Asal berhasil ditambahkan!');
+            // Reset form setelah sukses
+            document.getElementById('formAsal').reset();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert('Terjadi kesalahan. Coba lagi.');
+        });
+    });
+    </script>
+</body>
+</html>

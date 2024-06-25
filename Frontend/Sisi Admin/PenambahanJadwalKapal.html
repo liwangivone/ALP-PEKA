@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Penambahan Jadwal Kapal</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h2 class="text-center">Form Penambahan Jadwal Kapal</h2>
+                <form id="jadwalKapalForm">
+                    <div class="form-group row">
+                        <label for="idShip" class="col-md-4 col-form-label">ID Kapal:</label>
+                        <div class="col-md-8">
+                            <select id="idShip" class="form-control" required>
+                                <!-- Options will be populated here -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="idDeparturePort" class="col-md-4 col-form-label">ID Keberangkatan:</label>
+                        <div class="col-md-8">
+                            <select id="idDeparturePort" class="form-control" required>
+                                <!-- Options will be populated here -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="idArrivalPort" class="col-md-4 col-form-label">ID Kedatangan:</label>
+                        <div class="col-md-8">
+                            <select id="idArrivalPort" class="form-control" required>
+                                <!-- Options will be populated here -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="departureDate" class="col-md-4 col-form-label">Tanggal Keberangkatan:</label>
+                        <div class="col-md-8">
+                            <input type="date" id="departureDate" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="departureTime" class="col-md-4 col-form-label">Waktu Keberangkatan:</label>
+                        <div class="col-md-8">
+                            <input type="time" id="departureTime" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="arrivalTime" class="col-md-4 col-form-label">Waktu Kedatangan:</label>
+                        <div class="col-md-8">
+                            <input type="time" id="arrivalTime" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="hargaDewasa" class="col-md-4 col-form-label">Harga Baru Dewasa:</label>
+                        <div class="col-md-8">
+                            <select id="hargaDewasa" class="form-control" required>
+                                <option value="50000">50.000</option>
+                                <option value="100000">100.000</option>
+                                <option value="150000">150.000</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="hargaAnak" class="col-md-4 col-form-label">Harga Baru Anak:</label>
+                        <div class="col-md-8">
+                            <select id="hargaAnak" class="form-control" required>
+                                <option value="50000">50.000</option>
+                                <option value="100000">100.000</option>
+                                <option value="150000">150.000</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12 text-right">
+                            <button type="submit" class="btn btn-primary">Tambah</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get today's date in YYYY-MM-DD format
+        var today = new Date().toISOString().split('T')[0];
+        document.getElementById("departureDate").setAttribute("min", today);
+
+        // Populate ship, departure port, and arrival port options from backend
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('https://sf785k8l-8080.asse.devtunnels.ms/api/ship/all')
+                .then(response => response.json())
+                .then(data => {
+                    const shipSelect = document.getElementById('idShip');
+                    data.payload.ship.forEach(ship => {
+                        const option = document.createElement('option');
+                        option.value = ship.shipID;
+                        option.textContent = `${ship.shipID} - ${ship.shipName}`;
+                        shipSelect.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching ship list:', error);
+                    alert('Terjadi kesalahan saat memuat daftar kapal.');
+                });
+
+            fetch('https://sf785k8l-8080.asse.devtunnels.ms/api/origin/all')
+                .then(response => response.json())
+                .then(data => {
+                    const originSelect = document.getElementById('idDeparturePort');
+                    data.payload.origin.forEach(origin => {
+                        const option = document.createElement('option');
+                        option.value = origin.originID;
+                        option.textContent = `${origin.originID} - ${origin.originName}`;
+                        originSelect.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching origin list:', error);
+                    alert('Terjadi kesalahan saat memuat daftar keberangkatan.');
+                });
+
+            fetch('https://sf785k8l-8080.asse.devtunnels.ms/api/destination/all')
+                .then(response => response.json())
+                .then(data => {
+                    const destinationSelect = document.getElementById('idArrivalPort');
+                    data.payload.destination.forEach(destination => {
+                        const option = document.createElement('option');
+                        option.value = destination.destinationID;
+                        option.textContent = `${destination.destinationID} - ${destination.destinationName}`;
+                        destinationSelect.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching destination list:', error);
+                    alert('Terjadi kesalahan saat memuat daftar kedatangan.');
+                });
+        });
+
+        // Validate departure and arrival times
+        document.getElementById("jadwalKapalForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            var shipID = document.getElementById("idShip").value;
+            var originID = document.getElementById("idDeparturePort").value;
+            var destinationID = document.getElementById("idArrivalPort").value;
+            var departureDate = document.getElementById("departureDate").value;
+            var departureTime = document.getElementById("departureTime").value;
+            var arrivalTime = document.getElementById("arrivalTime").value;
+            var adultPrice = document.getElementById("hargaDewasa").value;
+            var childPrice = document.getElementById("hargaAnak").value;
+
+            var departureDateTime = new Date(departureDate + "T" + departureTime);
+            var arrivalDateTime = new Date(departureDate + "T" + arrivalTime);
+
+            if (departureDateTime >= arrivalDateTime) {
+                alert("Departure date and time must be earlier than arrival date and time.");
+                return;
+            }
+
+            var formData = {
+                shipID: shipID,
+                originID: originID,
+                destinationID: destinationID,
+                departureTime: departureDate + " " + departureTime + ":00",
+                arrivalTime: departureDate + " " + arrivalTime + ":00",
+                adultPrice: parseInt(adultPrice),
+                childPrice: parseInt(childPrice)
+            };
+
+            const params = new URLSearchParams(formData);
+
+            // Buat URL lengkap dengan parameter query
+            const url = `https://sf785k8l-8080.asse.devtunnels.ms/api/shipSchedule/admin/add?${params.toString()}`;
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status) {
+                    alert('Jadwal kapal berhasil ditambahkan!');
+                    document.getElementById('jadwalKapalForm').reset();
+                } else {
+                    alert('Terjadi kesalahan: ' + data.messages.join(', '));
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan: ' + error.message);
+            });
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

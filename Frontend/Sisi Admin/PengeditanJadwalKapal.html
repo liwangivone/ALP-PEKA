@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pengeditan Jadwal Kapal</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h2 class="text-center">Form Pengeditan Jadwal Kapal</h2> 
+                <form id="jadwalKapalForm">
+                    <div class="form-group row">
+                        <label for="idOperationRemove" class="col-md-4 col-form-label text-md-left">ID Jadwal Kapal:</label>
+                        <div class="col-md-8">
+                            <select id="idOperationRemove" class="form-control" required>
+                                <!-- Option values will be populated dynamically -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="idShipAdd" class="col-md-4 col-form-label text-md-left">ID Kapal:</label>
+                        <div class="col-md-8">
+                            <select id="idShipAdd" class="form-control" required>
+                                <!-- Option values will be populated dynamically -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="idDeparturePort" class="col-md-4 col-form-label">ID Keberangkatan:</label>
+                        <div class="col-md-8">
+                            <select id="idDeparturePort" class="form-control" required>
+                                <!-- Option values will be populated dynamically -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="idArrivalPort" class="col-md-4 col-form-label">ID Kedatangan:</label>
+                        <div class="col-md-8">
+                            <select id="idArrivalPort" class="form-control" required>
+                                <!-- Option values will be populated dynamically -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="departureDate" class="col-md-4 col-form-label">Tanggal Keberangkatan Baru:</label>
+                        <div class="col-md-8">
+                            <input type="date" id="departureDate" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="departureTimeAdd" class="col-md-4 col-form-label text-md-left">Waktu Keberangkatan Baru:</label>
+                        <div class="col-md-8">
+                            <input type="time" id="departureTimeAdd" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="arrivalTimeAdd" class="col-md-4 col-form-label text-md-left">Waktu Kedatangan Baru:</label>
+                        <div class="col-md-8">
+                            <input type="time" id="arrivalTimeAdd" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="hargaDewasa" class="col-md-4 col-form-label">Harga Baru Dewasa:</label>
+                        <div class="col-md-8">
+                            <select id="hargaDewasa" class="form-control" required>
+                                <option value="50000">50.000</option>
+                                <option value="100000">100.000</option>
+                                <option value="150000">150.000</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="hargaAnak" class="col-md-4 col-form-label">Harga Baru Anak:</label>
+                        <div class="col-md-8">
+                            <select id="hargaAnak" class="form-control" required>
+                                <option value="50000">50.000</option>
+                                <option value="100000">100.000</option>
+                                <option value="150000">150.000</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12 text-right">
+                            <button type="submit" class="btn btn-primary">Edit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get today's date in YYYY-MM-DD format
+        var today = new Date().toISOString().split('T')[0];
+        document.getElementById("departureDate").setAttribute("min", today);
+
+        // Fetch options for ship schedule, ship, origin, and destination
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('https://sf785k8l-8080.asse.devtunnels.ms/api/ship/all')
+                .then(response => response.json())
+                .then(data => {
+                    const scheduleSelect = document.getElementById('idOperationRemove');
+                    data.payload.forEach(schedule => {
+                        const option = document.createElement('option');
+                        option.value = schedule.id;
+                        option.textContent = `ID: ${schedule.id} - Ship: ${schedule.ship.shipName}`;
+                        scheduleSelect.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching schedule list:', error);
+                    alert('Terjadi kesalahan saat memuat daftar jadwal kapal.');
+                });
+
+            fetch('https://sf785k8l-8080.asse.devtunnels.ms/api/ship/all')
+                .then(response => response.json())
+                .then(data => {
+                    const shipSelect = document.getElementById('idShipAdd');
+                    data.payload.forEach(ship => {
+                        const option = document.createElement('option');
+                        option.value = ship.id;
+                        option.textContent = `${ship.id} - ${ship.name}`;
+                        shipSelect.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching ship list:', error);
+                    alert('Terjadi kesalahan saat memuat daftar kapal.');
+                });
+
+            fetch('https://sf785k8l-8080.asse.devtunnels.ms/api/origin/all')
+                .then(response => response.json())
+                .then(data => {
+                    const originSelect = document.getElementById('idDeparturePort');
+                    // TODO: error
+                    data.payload.forEach(origin => {
+                        const option = document.createElement('option');
+                        option.value = origin.id;
+                        option.textContent = `${origin.id} - ${origin.name}`;
+                        originSelect.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching origin list:', error);
+                    alert('Terjadi kesalahan saat memuat daftar keberangkatan.');
+                });
+
+            fetch('https://sf785k8l-8080.asse.devtunnels.ms/api/destination/all')
+                .then(response => response.json())
+                .then(data => {
+                    const destinationSelect = document.getElementById('idArrivalPort');
+                    data.payload.forEach(destination => {
+                        const option = document.createElement('option');
+                        option.value = destination.id;
+                        option.textContent = `${destination.id} - ${destination.name}`;
+                        destinationSelect.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching destination list:', error);
+                    alert('Terjadi kesalahan saat memuat daftar kedatangan.');
+                });
+        });
+
+        // Validate and submit the form data
+        document.getElementById("jadwalKapalForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            var scheduleID = document.getElementById("idOperationRemove").value;
+            var shipID = document.getElementById("idShipAdd").value;
+            var originID = document.getElementById("idDeparturePort").value;
+            var destinationID = document.getElementById("idArrivalPort").value;
+            var departureDate = document.getElementById("departureDate").value;
+            var departureTime = document.getElementById("departureTimeAdd").value;
+            var arrivalTime = document.getElementById("arrivalTimeAdd").value;
+            var adultPrice = document.getElementById("hargaDewasa").value;
+            var childPrice = document.getElementById("hargaAnak").value;
+
+            var departureDateTime = new Date(departureDate + "T" + departureTime);
+            var arrivalDateTime = new Date(departureDate + "T" + arrivalTime);
+
+            if (departureDateTime >= arrivalDateTime) {
+                alert("Departure date and time must be earlier than arrival date and time.");
+                return;
+            }
+
+            var formData = {
+                shipID: shipID,
+                originID: originID,
+                destinationID: destinationID,
+                departureTime: departureDate + " " + departureTime + ":00",
+                arrivalTime: departureDate + " " + arrivalTime + ":00",
+                adultPrice: parseInt(adultPrice),
+                childPrice: parseInt(childPrice)
+            };
+
+            var url = `https://sf785k8l-8080.asse.devtunnels.ms/api/shipSchedule/admin/update/${scheduleID}`;
+
+            fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status) {
+                    alert('Ship schedule successfully updated');
+                } else {
+                    alert('Error updating ship schedule: ' + data.messages.join(', '));
+                }
+            })
+            .catch(error => {
+                console.error('Error updating ship schedule:', error);
+                alert('Terjadi kesalahan saat memperbarui jadwal kapal.');
+            });
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pengeditan Kapal</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h2 class="text-center">Form Pengeditan Kapal</h2>
+                <form id="formEditKapal">
+                    <div class="form-group row">
+                        <label for="idKapalRemove" class="col-md-4 col-form-label text-md-left">ID Kapal:</label>
+                        <div class="col-md-8">
+                            <select id="idKapalRemove" class="form-control" required>
+                                <!-- Options will be populated here -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="namaKapalAdd" class="col-md-4 col-form-label text-md-left">Nama Baru Kapal:</label>
+                        <div class="col-md-8">
+                            <input type="text" id="namaKapalAdd" class="form-control" placeholder="Nama Kapal" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="kapasitasAdd" class="col-md-4 col-form-label text-md-left">Kapasitas Baru:</label>
+                        <div class="col-md-8">
+                            <input type="number" id="kapasitasAdd" class="form-control" placeholder="Kapasitas" min="1" oninput="validity.valid||(value='');" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="statusKapal" class="col-md-4 col-form-label text-md-left">Status Baru Kapal:</label>
+                        <div class="col-md-8">
+                            <select id="statusKapal" class="form-control" required>
+                                <option value="Tersedia">Tersedia</option>
+                                <option value="Tidak Tersedia">Tidak Tersedia</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12 text-right">
+                            <button type="submit" class="btn btn-primary">Ubah</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('https://sf785k8l-8080.asse.devtunnels.ms/api/ship/all')
+                .then(response => response.json())
+                .then(data => {
+                    const select = document.getElementById('idKapalRemove');
+                    if (data.payload && data.payload.ship) {
+                        data.payload.ship.forEach(ship => {
+                            const option = document.createElement('option');
+                            option.value = ship.shipID;
+                            option.textContent = `${ship.shipID} - ${ship.shipName}`;
+                            select.appendChild(option);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching ship list:', error);
+                    alert('Terjadi kesalahan saat memuat daftar kapal.');
+                });
+        });
+
+        document.getElementById('formEditKapal').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const shipID = document.getElementById('idKapalRemove').value;
+            const shipName = document.getElementById('namaKapalAdd').value;
+            const capacity = document.getElementById('kapasitasAdd').value;
+            const status = document.getElementById('statusKapal').value;
+
+            const payload = {
+                shipID: parseInt(shipID, 10),
+                shipName: shipName,
+                capacity: parseInt(capacity, 10),
+                status: status
+            };
+
+            console.log('Payload:', payload); // Tambahkan log untuk payload
+
+            fetch(`https://sf785k8l-8080.asse.devtunnels.ms/api/ship/id?shipID=${payload.shipID}&shipName=${payload.shipName}&capacity=${payload.capacity}&status=${payload.status}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(response => {
+                console.log('HTTP status:', response.status); // Log status respons
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response data:', data); // Tambahkan log untuk response data
+                if (data.status) {
+                    alert('Kapal berhasil diperbarui!');
+                    document.getElementById('formEditKapal').reset();
+                } else {
+                    alert('Terjadi kesalahan: ' + data.messages.join(', '));
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan. Coba lagi.');
+            });
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

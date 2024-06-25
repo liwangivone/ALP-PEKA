@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pengeditan Asal</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h2 class="text-center">Form Pengeditan Asal</h2>
+                <form id="formEditAsal">
+                    <div class="form-group row">
+                        <label for="idAsalRemove" class="col-md-4 col-form-label text-md-left">ID Asal:</label>
+                        <div class="col-md-8">
+                            <select id="idAsalRemove" class="form-control" required>
+                                <!-- Options will be populated here -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="namaAsalAdd" class="col-md-4 col-form-label text-md-left">Nama Asal Baru:</label>
+                        <div class="col-md-8">
+                            <input type="text" id="namaAsalAdd" class="form-control" placeholder="Nama Asal Baru" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12 text-right">
+                            <button type="submit" class="btn btn-primary">Ubah</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('https://sf785k8l-8080.asse.devtunnels.ms/api/origin/all')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Data fetched:', data); // Add this line for debugging
+                    const select = document.getElementById('idAsalRemove');
+
+                    if (data.payload && data.payload.origin) { // Check if payload and origins exist
+                        data.payload.origin.forEach(origin => {
+                            const option = document.createElement('option');
+                            option.value = origin.originID;
+                            option.textContent = `${origin.originID} - ${origin.originName}`; // Format "ID - Nama"
+                            select.appendChild(option);
+                        });
+                    } else {
+                        throw new Error('Invalid data structure');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching origin list:', error);
+                    alert('Terjadi kesalahan saat memuat daftar asal.');
+                });
+        });
+
+        document.getElementById('formEditAsal').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const originID = document.getElementById('idAsalRemove').value;
+            const originName = document.getElementById('namaAsalAdd').value;
+
+            const url = `https://sf785k8l-8080.asse.devtunnels.ms/api/origin/id?originID=${originID}&originName=${encodeURIComponent(originName)}`;
+
+            fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Success:', data);
+                alert('Asal berhasil diubah!');
+                document.getElementById('formEditAsal').reset();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan. Coba lagi.');
+            });
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pengurangan Jadwal Kapal</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h2 class="text-center">Form Pengurangan Jadwal Kapal</h2>
+                <form id="formDeleteJadwalKapal">
+                    <div class="form-group row">
+                        <label for="idJadwalKapal" class="col-md-4 col-form-label text-md-left">ID Jadwal Kapal:</label>
+                        <div class="col-md-8">
+                            <select id="idJadwalKapal" class="form-control" required>
+                                <!-- Options will be populated here -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="idKapal" class="col-md-4 col-form-label text-md-left">ID Kapal:</label>
+                        <div class="col-md-8">
+                            <input type="text" id="idKapal" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="idKeberangkatan" class="col-md-4 col-form-label text-md-left">ID Keberangkatan:</label>
+                        <div class="col-md-8">
+                            <input type="text" id="idKeberangkatan" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="idKedatangan" class="col-md-4 col-form-label text-md-left">ID Kedatangan:</label>
+                        <div class="col-md-8">
+                            <input type="text" id="idKedatangan" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="tanggalKeberangkatan" class="col-md-4 col-form-label text-md-left">Tanggal Keberangkatan:</label>
+                        <div class="col-md-8">
+                            <input type="text" id="tanggalKeberangkatan" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="waktuKeberangkatan" class="col-md-4 col-form-label text-md-left">Waktu Keberangkatan:</label>
+                        <div class="col-md-8">
+                            <input type="text" id="waktuKeberangkatan" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="waktuKedatangan" class="col-md-4 col-form-label text-md-left">Waktu Kedatangan:</label>
+                        <div class="col-md-8">
+                            <input type="text" id="waktuKedatangan" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="hargaDewasa" class="col-md-4 col-form-label text-md-left">Harga Dewasa:</label>
+                        <div class="col-md-8">
+                            <input type="text" id="hargaDewasa" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="hargaAnak" class="col-md-4 col-form-label text-md-left">Harga Anak:</label>
+                        <div class="col-md-8">
+                            <input type="text" id="hargaAnak" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12 text-right">
+                            <button type="submit" class="btn btn-primary">Hapus</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const idJadwalKapalSelect = document.getElementById('idJadwalKapal');
+            const formDeleteJadwalKapal = document.getElementById('formDeleteJadwalKapal');
+
+            // Fetch all ship schedules and populate the select dropdown
+            fetch('https://sf785k8l-8080.asse.devtunnels.ms/api/shipSchedule/all')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Received data for all schedules:', data);
+                    if (data.payload && Array.isArray(data.payload)) {
+                        const schedules = data.payload;
+                        schedules.forEach(schedule => {
+                            const option = document.createElement('option');
+                            option.value = schedule.shipScheduleID;
+                            option.textContent = `${schedule.shipScheduleID}`;
+                            idJadwalKapalSelect.appendChild(option);
+                        });
+                    } else {
+                        console.error('Unexpected response structure:', data);
+                    }
+                }) 
+                .catch(error => console.error('Error fetching schedules:', error));
+
+            // Fetch details of the selected ship schedule and populate the form fields
+            idJadwalKapalSelect.addEventListener('focus', function() {
+                const selectedID = this.value;
+                if (selectedID) {
+                    fetch(`https://sf785k8l-8080.asse.devtunnels.ms/api/shipSchedule/${selectedID}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(`Received data for schedule ID ${selectedID}:`, data);
+                            const schedule = data.payload;
+                            if (schedule && schedule.ship && schedule.origin && schedule.destination) {
+                                document.getElementById('idKapal').value = schedule.ship.shipID;
+                                document.getElementById('idKeberangkatan').value = schedule.origin.originID;
+                                document.getElementById('idKedatangan').value = schedule.destination.destinationID;
+                                document.getElementById('tanggalKeberangkatan').value = schedule.departureTime.split('T')[0];
+                                document.getElementById('waktuKeberangkatan').value = schedule.departureTime.split('T')[1];
+                                document.getElementById('waktuKedatangan').value = schedule.arrivalTime.split('T')[1];
+                                document.getElementById('hargaDewasa').value = schedule.adultPrice;
+                                document.getElementById('hargaAnak').value = schedule.childPrice;
+                            } else {
+                                console.error('Invalid schedule data:', schedule);
+                            }
+                        })
+                        .catch(error => console.error(`Error fetching schedule details for ID ${selectedID}:`, error));
+                }
+            });
+
+            // Handle form submission to delete the selected ship schedule
+            formDeleteJadwalKapal.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const selectedID = idJadwalKapalSelect.value;
+                
+                const url = `https://sf785k8l-8080.asse.devtunnels.ms/api/shipSchedule/id?shipScheduleID=${selectedID}`;
+
+                fetch(url, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            alert('Jadwal kapal berhasil dihapus');
+                            window.location.reload();
+                        } else {
+                            response.json().then(data => {
+                                alert(`Terjadi kesalahan: ${data.message || 'Silakan coba lagi nanti.'}`);
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error deleting schedule:', error);
+                        alert('Terjadi kesalahan. Silakan coba lagi nanti.');
+                    });
+             
+            });
+        });
+    </script>
+</body>
+</html>

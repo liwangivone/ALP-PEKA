@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konfirmasi Pesanan</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .container-fluid {
+            display: flex;
+            flex-wrap: nowrap;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #f8f9fa;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .sidebar a:hover {
+            background-color: #ddd;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .btn-confirm {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            margin-right: 10px;
+        }
+
+        .btn-confirm:hover {
+            background-color: #218838;
+        }
+
+        .btn-reject {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-reject:hover {
+            background-color: #c82333;
+        }
+
+        .notification {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            z-index: 1000;
+            width: 80%;
+            max-width: 300px;
+        }
+
+        .notification button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .notification button:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 768px) {
+            .container-fluid {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: 200px;
+                overflow-x: auto;
+            }
+
+            .content {
+                flex: none;
+                padding: 10px;
+            }
+
+            .btn-confirm,
+            .btn-reject {
+                padding: 5px 10px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .btn-confirm,
+            .btn-reject {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .form-group {
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="sidebar" id="sidebar">
+            <h4>Nomor Transaksi</h4>
+            <div id="transactionList">
+                <!-- Transaction numbers will be dynamically added here -->
+            </div>
+        </div>
+        <div class="content">
+            <div class="container">
+                <h2 class="text-center">Konfirmasi Pesanan</h2>
+                <form id="confirmationForm">
+                    <div class="form-group">
+                        <label for="transactionId">ID Transaksi</label>
+                        <input type="text" class="form-control" id="transactionId" name="transactionId" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="user">User</label>
+                        <input type="text" class="form-control" id="user" name="user" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="virtualAccountNumber">Virtual Account Number</label>
+                        <input type="text" class="form-control" id="virtualAccountNumber" name="virtualAccountNumber" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="totalPrice">Total Harga</label>
+                        <input type="text" class="form-control" id="totalPrice" name="totalPrice" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="passengerQuantity">Kuantitas Penumpang</label>
+                        <input type="text" class="form-control" id="passengerQuantity" name="passengerQuantity" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="transactionTime">Waktu Transaksi</label>
+                        <input type="text" class="form-control" id="transactionTime" name="transactionTime" readonly>
+                    </div>
+                    <button type="button" class="btn-confirm" onclick="confirmOrder()">Konfirmasi</button>
+                    <button type="button" class="btn-reject" onclick="rejectOrder()">Tidak Diterima</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="notification" id="notification">
+        <p id="notificationText"></p>
+        <button onclick="closeNotification()">OK</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Here you would fetch the transaction list from your database
+            // For demonstration, we're using static data
+            const transactions = [
+                '123456', '234567', '345678', '456789', '567890'
+            ];
+
+            const transactionList = document.getElementById('transactionList');
+
+            transactions.forEach(transaction => {
+                const a = document.createElement('a');
+                a.textContent = transaction;
+                a.id = `transaction-${transaction}`;
+                a.onclick = () => loadTransaction(transaction);
+                transactionList.appendChild(a);
+            });
+
+            if (transactions.length > 0) {
+                loadTransaction(transactions[0]);
+            }
+        });
+
+        function loadTransaction(transactionId) {
+            // Logic to load transaction details based on the transaction ID
+            // For demonstration, using static data
+            const transactionData = {
+                transactionId: transactionId,
+                user: 'John Doe',
+                virtualAccountNumber: '987654321',
+                totalPrice: '500000',
+                passengerQuantity: '3',
+                transactionTime: '2024-06-18 14:30:00'
+            };
+
+            loadTransactionData(transactionData);
+        }
+
+        function loadTransactionData(data) {
+            document.getElementById('transactionId').value = data.transactionId;
+            document.getElementById('user').value = data.user;
+            document.getElementById('virtualAccountNumber').value = data.virtualAccountNumber;
+            document.getElementById('totalPrice').value = data.totalPrice;
+            document.getElementById('passengerQuantity').value = data.passengerQuantity;
+            document.getElementById('transactionTime').value = data.transactionTime;
+        }
+
+        function confirmOrder() {
+            handleOrder('dikonfirmasi');
+        }
+
+        function rejectOrder() {
+            handleOrder('tidak diterima');
+        }
+
+        function handleOrder(status) {
+            const transactionId = document.getElementById('transactionId').value;
+
+            // Logic to handle order confirmation/rejection
+
+            // Remove the transaction from the sidebar
+            const transactionElement = document.getElementById(`transaction-${transactionId}`);
+            if (transactionElement) {
+                transactionElement.remove();
+            }
+
+            // Display notification
+            showNotification(`Pesanan ${transactionId} ${status === 'dikonfirmasi' ? 'telah dikonfirmasi' : 'tidak diterima'}.`);
+
+            // Automatically proceed to the next transaction
+            const nextTransaction = document.getElementById('transactionList').querySelector('a');
+            if (nextTransaction) {
+                loadTransaction(nextTransaction.textContent);
+            } else {
+                // If no more transactions are left
+                clearForm();
+            }
+        }
+
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            document.getElementById('notificationText').textContent = message;
+            notification.style.display = 'block';
+        }
+
+        function closeNotification() {
+            const notification = document.getElementById('notification');
+            notification.style.display = 'none';
+        }
+
+        function clearForm() {
+            document.getElementById('transactionId').value = '';
+            document.getElementById('user').value = '';
+            document.getElementById('virtualAccountNumber').value = '';
+            document.getElementById('totalPrice').value = '';
+            document.getElementById('passengerQuantity').value = '';
+            document.getElementById('transactionTime').value = '';
+            showNotification('Tidak ada transaksi lagi.');
+        }
+    </script>
+</body>
+
+</html>

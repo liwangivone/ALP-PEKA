@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pengurangan Kapal</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h2 class="text-center">Form Pengurangan Kapal</h2>
+                <form id="formDeleteKapal">
+                    <div class="form-group row">
+                        <label for="idKapal" class="col-md-4 col-form-label text-md-left">ID Kapal:</label>
+                        <div class="col-md-8">
+                            <select id="idKapal" class="form-control" required>
+                                <!-- Options will be populated here -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12 text-right">
+                            <button type="submit" class="btn btn-primary">Hapus</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('https://sf785k8l-8080.asse.devtunnels.ms/api/ship/all')
+                .then(response => response.json())
+                .then(data => {
+                    const select = document.getElementById('idKapal');
+                    if (data.payload && data.payload.ship) {
+                        data.payload.ship.forEach(ship => {
+                            const option = document.createElement('option');
+                            option.value = ship.shipID;
+                            option.textContent = `${ship.shipID} - ${ship.shipName}`;
+                            select.appendChild(option);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching ship list:', error);
+                    alert('Terjadi kesalahan saat memuat daftar kapal.');
+                });
+        });
+
+        document.getElementById('formDeleteKapal').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const shipID = document.getElementById('idKapal').value;
+
+            fetch(`https://sf785k8l-8080.asse.devtunnels.ms/api/ship/id/name?shipID=${shipID}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    return response.json().then(data => {
+                        throw new Error(data.messages ? data.messages.join(', ') : 'Failed to delete ship');
+                    });
+                }
+            })
+            .then(data => {
+                alert('Kapal berhasil dihapus!');
+                document.getElementById('formDeleteKapal').reset();
+                removeShipOption(shipID);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan: ' + error.message);
+            });
+        });
+
+        function removeShipOption(shipID) {
+            const select = document.getElementById('idKapal');
+            for (let i = 0; i < select.options.length; i++) {
+                if (select.options[i].value == shipID) {
+                    select.remove(i);
+                    break;
+                }
+            }
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
