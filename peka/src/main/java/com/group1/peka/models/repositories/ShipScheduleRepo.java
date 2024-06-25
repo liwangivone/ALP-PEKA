@@ -1,5 +1,7 @@
 package com.group1.peka.models.repositories;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
@@ -14,5 +16,12 @@ public interface ShipScheduleRepo extends CrudRepository<ShipSchedule, Integer> 
     boolean existsByShipScheduleID(int shipScheduleID);
 
     void deleteByShipScheduleID(int shipScheduleID);
+
+    List<ShipSchedule> findByOriginOriginNameAndDestinationDestinationNameAndDepartureTimeAndArrivalTimeAndShipStatus(
+        String originName, 
+        String destinationName, 
+        LocalDateTime departureTime, 
+        LocalDateTime arrivalTime,
+        String status);
   
 }

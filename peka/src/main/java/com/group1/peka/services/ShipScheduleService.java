@@ -1,6 +1,7 @@
 package com.group1.peka.services;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class ShipScheduleService {
     @Autowired
     private ShipScheduleRepo shipScheduleRepo;
 
-    public ShipSchedule createShipSchedule(Ship ship, Origin origin, Destination destination, LocalDateTime departureTime, LocalDateTime arrivalTime, int adultPrice, int childPrice ) {
+    public ShipSchedule createShipSchedule(Ship ship, Origin origin, Destination destination, LocalDateTime departureTime, LocalDateTime arrivalTime, int adultPrice, int childPrice) {
         ShipSchedule shipSchedule = new ShipSchedule(
             '0',
             ship,
@@ -63,5 +64,14 @@ public class ShipScheduleService {
         }
 
         return false;
+    }
+
+    public List<ShipSchedule> filterSchedules(String originName, String destinationName, LocalDateTime departureTime, LocalDateTime arrivalTime) {
+        return shipScheduleRepo.findByOriginOriginNameAndDestinationDestinationNameAndDepartureTimeAndArrivalTimeAndShipStatus(
+            originName, 
+            destinationName, 
+            departureTime, 
+            arrivalTime,
+            "tidak tersedia");
     }
 }

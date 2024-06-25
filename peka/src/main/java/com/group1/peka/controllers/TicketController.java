@@ -12,8 +12,6 @@
 // import org.springframework.web.bind.annotation.RestController;
 
 // import com.group1.peka.dto.ResponseData;
-// import com.group1.peka.dto.TicketData;
-// import com.group1.peka.dto.TicketListData;
 // import com.group1.peka.models.entities.ShipSchedule;
 // import com.group1.peka.models.entities.Ticket;
 // import com.group1.peka.models.entities.Transaction;
@@ -28,13 +26,13 @@
 //     private TicketService ticketService;
 
 //     @Autowired
-//     private ShipSchedule shipOperationService;
+//     private ShipSchedule shipScheduleService;
 
 //     @Autowired
 //     private TransactionService transactionService;
     
 //     @PostMapping("/ticket/{id}")
-//     public ResponseEntity<ResponseData<TicketListData>> createTicket(
+//     public ResponseEntity<ResponseData<Ticket>> createTicket(
 //             @PathVariable("id") int ticketID,
 //             @RequestParam int shipOperationID,
 //             @RequestParam int transactionID,
@@ -42,8 +40,8 @@
 //             @RequestParam String passengerName,
 //             @RequestParam String passengerType) {
 
-//         ResponseData<TicketListData> responseData = new ResponseData<>();
-//         List<TicketData> result = new ArrayList<>();
+//         ResponseData<Ticket> responseData = new ResponseData<>();
+//         List<Ticket> result = new ArrayList<>();
 
 //         // // Ensure shipOperation exists
 //         // ShipSchedule shipOperation = shipOperationService.getShipOperationbyID(shipOperationID).orElse(null);
