@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Registration Page">
+    <meta name="author" content="">
+    <title>Daftar</title>
+    <link rel="icon" href="https://getbootstrap.com/docs/4.0/assets/img/favicons/favicon.ico">
+    <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: url('beach.png') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .custom-border {
+            border-radius: 10px;
+            border: 1px solid #ced4da;
+            min-height: 500px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .btn-custom-radius {
+            border-radius: 25px;
+        }
+
+        .auth-page-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .auth-form {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .form-text {
+            visibility: hidden;
+        }
+
+        .form-text.visible {
+            visibility: visible;
+        }
+
+        .text-left {
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="auth-page-container">
+        <div class="auth-form">
+            <div class="custom-border p-4">
+                <div class="text-center mb-4">
+                    <img src="peka.png" alt="logo" style="width: 100px; height: 50px; object-fit: contain;">
+                </div>
+                <h6 class="mb-4 text-left" style="font-size: 20px;">Daftar Akun Baru</h6>
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label for="fullName" class="text-left" style="display: block;">Nama Lengkap</label>
+                        <input type="text" class="form-control" id="fullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail" class="text-left" style="display: block;">Alamat E-mail</label>
+                        <input type="email" class="form-control" id="registerEmail" required>
+                        <small id="registerEmailError" class="form-text text-danger">Email harus mengandung '@' dan '.'</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword" class="text-left" style="display: block;">Kata Sandi</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="registerPassword" required>
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" onclick="togglePasswordVisibility('registerPassword')">
+                                    <i id="registerPasswordIcon" class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <small id="registerPasswordError" class="form-text text-danger">Password tidak sesuai dengan ketentuan.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword" class="text-left" style="display: block;">Konfirmasi Kata Sandi</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="confirmPassword" required>
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" onclick="togglePasswordVisibility('confirmPassword')">
+                                    <i id="confirmPasswordIcon" class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <small id="confirmPasswordError" class="form-text text-danger">Konfirmasi kata sandi tidak sesuai.</small>
+                    </div>
+                    <button type="submit" class="btn btn-warning w-100 text-white">Daftar</button>
+                    <small id="registerError" class="form-text text-danger mt-2">Pendaftaran gagal, mohon coba lagi.</small>
+                </form>
+                <div class="text-center mt-3">
+                    <p>Sudah punya akun? <a href="masuk.html">Masuk</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://getbootstrap.com/docs/4.0/assets/js/vendor/popper.min.js"></script>
+    <script src="https://getbootstrap.com/docs/4.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+
+    <script>
+        function togglePasswordVisibility(id) {
+            var passwordInput = document.getElementById(id);
+            var icon = document.getElementById(id + 'Icon');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        document.getElementById('registerForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const registerEmailError = document.getElementById('registerEmailError');
+            const registerPasswordError = document.getElementById('registerPasswordError');
+            const confirmPasswordError = document.getElementById('confirmPasswordError');
+            const registerError = document.getElementById('registerError');
+
+            // Hide error messages initially
+            registerEmailError.classList.remove('visible');
+            registerPasswordError.classList.remove('visible');
+            confirmPasswordError.classList.remove('visible');
+            registerError.classList.remove('visible');
+
+            // Validate confirm password
+            if (password !== confirmPassword) {
+                confirmPasswordError.classList.add('visible');
+                return;
+            }
+
+            // Perform fetch request to backend API
+            fetch(`https://sf785k8l-8080.asse.devtunnels.ms/api/register/user?name=${encodeURIComponent(fullName)}&email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    fullName: fullName,
+                    email: email,
+                    password: password
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response data:', data);  // Debugging output
+
+                if (data.status) {
+                    // Redirect to the next page if registration is successful
+                    window.location.href = 'masuk.html';
+                } else {
+                    // Show appropriate error messages based on the response
+                    if (data.messages.includes("Invalid email")) {
+                        registerEmailError.classList.add('visible');
+                    } else {
+                        registerError.classList.add('visible');
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                registerError.classList.add('visible');
+            });
+        });
+    </script>
+</body>
+
+</html>

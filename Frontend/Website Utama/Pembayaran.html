@@ -1,0 +1,79 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/tesstyle.css" rel="stylesheet">
+  </head>
+  <body style="background-color: rgba(248, 248, 248, 0.8); background-image: url('gambar/aerial-view.png')">
+    <div class="bg-zinc-100 p-4 rounded-lg max-w-4xl mx-auto" style="margin-top: 100px;">
+  <div class="bg-white p-4 rounded-lg shadow-md mb-4">
+    <h2 class="text-lg font-semibold mb-2">Metode Pembayaran</h2>
+    <div class="mb-4">
+    </div>
+    <div class="space-y-4">
+      <label class="flex items-center space-x-2">
+        <input type="radio" name="payment_method" class="form-radio" onclick="document.getElementById('payButton').disabled = false;">
+        <img src="gambar/bcalogo.png" alt="BCA" width="40px;" height="20px;">
+        <span>BCA Virtual Account</span>
+      </label>
+      <label class="flex items-center space-x-2">
+        <input type="radio" name="payment_method" class="form-radio" onclick="document.getElementById('payButton').disabled = false;">
+        <img src="gambar/mandirifix.png" alt="Mandiri" width="40px;" height="20px;">
+        <span>Mandiri Virtual Account</span>
+      </label>
+      <label class="flex items-center space-x-2">
+        <input type="radio" name="payment_method" class="form-radio" onclick="document.getElementById('payButton').disabled = false;">
+        <img src="gambar/bri.png" alt="BRI" width="40px;" height="20px;">
+        <span>BRI Virtual Account</span>
+      </label>
+    </div>
+
+<div class="bg-white p-4 rounded-lg shadow-md" style="margin-top: 40px;">
+    <div class="flex justify-between items-center mb-4">
+        <span class="text-zinc-700 font-bold">Order ID: <script>document.write(`${localStorage.getItem('orderID')}`);</script></span>
+      <div class="flex items-center space-x-2">
+        <img src="https://placehold.co/20x20" alt="Location">
+        <span>
+            <script>
+                document.write(`${localStorage.getItem('port-awal')}`);
+            </script> ⇌ 
+            <script>
+                document.write(`${localStorage.getItem('port-akhir')}`);
+            </script>
+        </span>
+      </div>
+    </div>
+    <div class="flex justify-between items-center mb-4">
+      <span style="margin-left: auto;">
+        <script>
+            document.write(new Date(localStorage.getItem('tanggalPelayaran')).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })); 
+        </script>
+    </span>
+    </div>
+
+    <div class="flex justify-between items-center mb-4">
+        <span style="margin-left: auto;">
+          <script>
+              document.write(new Date(localStorage.getItem('tanggalKembali')).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }));
+          </script>
+      </span>
+      </div>
+
+    <div class="flex justify-between items-center mb-4">
+      <span class="text-zinc-700">Total Pembayaran</span>
+      <span class="text-xl font-semibold">
+        <script>
+            document.write(`Rp ${parseInt(localStorage.getItem('totalHarga')).toLocaleString('id-ID', { minimumFractionDigits: 2 })}`);
+        </script>
+      </span>
+    </div>
+    <button id="payButton" class="bg-yellow-500 text-white font-medium px-4 py-2 rounded-lg w-full" onclick="handleButtonVA()"disabled>Bayar dengan Virtual Account</button>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="scripts.js"></script>
+</body>
+</html>

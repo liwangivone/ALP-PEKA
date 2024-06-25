@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .hidden {
+            display: none;
+        }
+        .text-red-500 {
+            color: red;
+        }
+        .full-width-header {
+            width: 100%;
+            margin: 0;
+            position: sticky;
+            top: 0;
+            z-index: 1020;
+        }
+
+        .logo-small {
+            width: 90px;
+            height: auto;
+        }
+
+        .collapse {
+            visibility: visible !important;
+        }
+    </style>
+</head>
+<body style="background-color: rgba(248, 248, 248, 0.8);">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm full-width-header">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="gambar/peka.png" alt="Logo" class="me-1 logo-small">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="iindex.html">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="riwayatorder.html">Riwayat</a>
+                    </li>
+                </ul>
+                <div class="dropdown ms-3">
+                    <button class="btn btn-light dropdown-toggle d-flex align-items-center" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        Hi, Leonard!
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle ms-2" viewBox="0 0 16 16">
+                            <path d="M13.468 12.37C12.758 11.226 11.484 10.5 10 10.5s-2.758.726-3.468 1.87A7 7 0 1 1 13.468 12.37zM8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 4a3 3 0 1 1 0 6A3 3 0 0 1 8 5zm0 1a2 2 0 1 0 0 4A2 2 0 0 0 8 6z"/>
+                        </svg>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <li><a class="dropdown-item" href="index.html" id="logout">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+        </header>
+        <main class="px-5 py-5">
+            <div class="col-span-1 md:col-span-2 dark:bg-zinc-800 rounded-lg overflow-hidden border-1 border-grey p-4 mb-1.5">
+                <h2 class="text-2xl font-bold mb-2">Detail Perjalanan</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+    <!-- Pergi -->
+    <div class="bg-white dark:bg-zinc-800 rounded-lg overflow-hidden border-2 border-grey full-width" id="kotakpergi" tyle="max-width: 78%;">
+        <div class="px-6 py-4">
+            <div class="flex items-center justify-between">
+                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">Pergi</span>
+                <span class="text-zinc-600 dark:text-zinc-400">
+                    <script>
+                        document.write(new Date(localStorage.getItem('tanggalPelayaran')).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }));
+                    </script>
+                </span>
+            </div>
+            <div class="mt-4">
+                <div class="flex items-center mb-4">
+                    <div class="text-2xl font-bold text-zinc-900" id="datetimePergi"></div> 
+                    <script>
+                        const datetimePergi = localStorage.getItem('datetime');
+                        document.getElementById('datetimePergi').textContent = datetimePergi;
+                    </script>
+                    <div class="ml-4">
+                        <div class="text-lg font-semibold text-zinc-900 " id="port-awal">
+                            <script>
+                                document.write(`${localStorage.getItem('port-awal')}`);
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <div class="text-2xl font-bold text-zinc-900 "id="arrivalTimePergi"></div>
+                    <script>
+                         const arrivalTimePergi = localStorage.getItem('arrivalTimePergi');
+                        document.getElementById('arrivalTimePergi').textContent = '08:00'
+                      </script>
+                    <div class="ml-4">
+                        <div class="text-lg font-semibold text-zinc-900 " id="port-akhir">
+                            <script>
+                                document.write(`${localStorage.getItem('port-akhir')}`);
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Pulang -->
+    <div class="bg-white dark:bg-zinc-800 rounded-lg overflow-hidden border-2 border-grey" id="kotakpulang">
+        <div class="px-6 py-4">
+            <div class="flex items-center justify-between">
+                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">Pulang</span>
+                <span class="text-zinc-6000 dark:text-zinc-400">
+                    <script>
+
+                        document.write(new Date(localStorage.getItem('tanggalKembali')).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }));
+
+                        document.addEventListener("DOMContentLoaded", function () {
+                        const tanggalKembali = localStorage.getItem('tanggalKembali');
+                        const tanggalPelayaran = localStorage.getItem('tanggalPelayaran');
+                        
+                        if (!tanggalKembali) {
+                            const kotakpulang = document.getElementById("kotakpulang");
+                            kotakpulang.style.display = "none";
+                        } else {
+                            document.getElementById("tanggalKembali").textContent = new Date(tanggalKembali).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+                        }
+                        
+                        if (!tanggalPelayaran) {
+                            const kotakpelayaran = document.getElementById("kotakpelayaran");
+                            kotakpelayaran.style.display = "none";
+                        } else {
+                            document.getElementById("tanggalPelayaran").textContent = new Date(tanggalPelayaran).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+                        }
+                    });
+                    </script>
+                </span>
+            </div>
+            <div class="mt-4">
+                <div class="flex items-center mb-4">
+                    <div class="text-2xl font-bold text-zinc-900" id="datetimePulang"></div> 
+                    <script>
+                        const datetimePulang = localStorage.getItem('datetimePulang');
+                        document.getElementById('datetimePulang').textContent = datetimePulang;
+                    </script>
+                    <div class="ml-4">
+                        <div class="text-lg font-semibold text-zinc-900" id="port-akhir">
+                            <script>
+                            document.write(`${localStorage.getItem('port-akhir')}`);
+                        </script>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <div class="text-2xl font-bold text-zinc-900" id="arrivalTimePulang"></div>
+                    <script>
+                        const arrivalTimePulang = localStorage.getItem('arrivalTimePulang');
+                        document.getElementById('arrivalTimePulang').textContent = arrivalTimePulang;
+                    </script>
+                    <div class="ml-4">
+                        <div class="text-lg font-semibold text-zinc-900 " id="port-awal">
+                            <script>
+                                document.write(`${localStorage.getItem('port-awal')}`);
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Detail Pemesan -->
+    <div class="col-span-1 md:col-span-2 dark:bg-zinc-800 rounded-lg overflow-hidden border-1 border-grey p-4">
+        <h2 class="text-2xl font-bold mb-2">Detail Penumpang</h2>
+<script>
+    const PilihTiketButton = document.getElementById('PilihTiketButton');
+    const orangDewasa = parseInt(localStorage.getItem('orangDewasa') || '0');
+    const anakKecil = parseInt(localStorage.getItem('anakKecil') || '0');
+    const totalForms = orangDewasa + anakKecil;
+    
+    for (let i = 0; i < totalForms; i++) {
+        let passengerType = '';
+        if (i < orangDewasa) {
+            passengerType = 'Dewasa';
+        } else {
+            passengerType = 'Anak';
+        }
+        document.write(` 
+            <div class="col-span-1 md:col-span-2 bg-white dark:bg-zinc-800 rounded-lg overflow-hidden border-1 border-grey p-4">
+                <h3 class="text-lg font-semibold">Penumpang ${i + 1} (${passengerType})</h3>
+                <form class="space-y-4">
+                    <input type="text" id="PilihTiketButton-${i}" placeholder="Nama Lengkap" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" oninput="console.log(this.value)" pattern="[A-Za-z]+" title="Nama harus berupa huruf, tanpa simbol dan angka." required>
+                    <span id="name-warning-message-${i}" class="text-red-500 text-sm hidden">Nama harus berupa huruf, tanpa simbol dan angka.</span>
+                </form>
+            </div>
+        `);
+    }
+
+    for (let i = 0; i < totalForms; i++) {
+        document.getElementById(`PilihTiketButton-${i}`).addEventListener('input', function() {
+            localStorage.setItem(`namaPenumpang-${i}`, this.value);
+        });
+    }
+</script>
+    </div>
+          
+    <!-- Detail Pembayaran -->
+    <div class="col-span-1 md:col-span-2 bg-white dark:bg-zinc-800 rounded-lg overflow-hidden border-2 border-grey">
+        <div class="px-6 py-4">
+            <h2 class="text-2xl font-bold mb-2">Detail Pembayaran</h2>
+            <div class="d-flex align-items-center mb-3">
+                <img src="gambar/asetpembayaran.png" class="me-3" alt="Icon" width="50px;" height="50px;">
+                <div>
+                    <script>
+                        var hargaOrangDewasa = 150000;
+                        var hargaAnakKecil = 50000;
+                        const tanggalKembali = localStorage.getItem("tanggalKembali");
+                        if(tanggalKembali) {
+                            hargaOrangDewasa *= 2;
+                            hargaAnakKecil *= 2;
+                        }
+                        const totalHarga = (orangDewasa * hargaOrangDewasa) + (anakKecil * hargaAnakKecil);
+                        document.write(`<p class="mb-0 text-zinc-900 dark:text-zinc-4000">Orang dewasa: ${orangDewasa} x Rp ${hargaOrangDewasa.toLocaleString()} = Rp ${(orangDewasa * hargaOrangDewasa).toLocaleString()}</p>`);
+                        if (anakKecil > 0) {
+                            document.write(`<p class="mb-0 text-zinc-900 dark:text-zinc-400">Anak kecil: ${anakKecil} x Rp ${hargaAnakKecil.toLocaleString()} = Rp ${(anakKecil * hargaAnakKecil).toLocaleString()}</p>`);
+                            }
+                        localStorage.setItem('totalHarga', totalHarga.toString());
+                    </script>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mt-4">
+                <h2 class="text-2xl text-zinc-900 font-bold">Total</h3>
+                <h2 class="text-2xl text-zinc-900 font-bold">
+                    <script>document.write(`<p class="mb-0 text-zinc-900 dark:text-zinc-400">${totalHarga.toLocaleString()}`);
+                    </script>
+                    </h2>
+            </div>
+            <br>
+
+            <button id="PilihTiketButton" class="bg-yellow-500 text-white font-medium px-4 py-2 rounded-lg w-full" onclick="moveToPembayaran()" oninput="checkNameInputs()">Pilih Tiket</button>
+        </div>
+    </div>
+    </div>
+    </main>
+    </div>
+
+    <script>
+
+        const portAwal = localStorage.getItem('port-awal');
+        const portAkhir = localStorage.getItem('port-akhir');
+        document.getElementById('port-awal').textContent = portAwal;
+        document.getElementById('port-akhir').textContent = portAkhir;
+    </script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="sscripts.js"></script>
+</body>
+</html>
+
+
+

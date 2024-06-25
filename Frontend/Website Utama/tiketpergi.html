@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/tesstyle.css" rel="stylesheet">
+</head>
+
+<body style="background-color: rgba(248, 248, 248, 0.8);">
+    <nav class="navbar navbar-expand-md navbar-light shadow-sm fixed-top custom-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="gambar/peka.png" alt="logo" class="img-fluid" style="width: 120px; height: auto;">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation" >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarsExampleDefault">
+                <div class="navbar-nav ml-auto mr-10">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link text-black" href="index.html" >Beranda <span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="auth-buttons">
+                    <a href="masuk.html" class="btn btn-primary btn-custom-radius me-0.5">
+                        <i class="fas fa-user"></i> Masuk
+                    </a>
+                    <a href="daftar.html" class="btn btn-warning btn-custom-radius">Daftar</a>
+                </div>
+            </div>
+            </div>
+        </div>
+    </nav>
+    </header>
+
+            <p class="text-center text-zinc-900 dark:text-zinc-100 mb-4 text-3xl font-bold" style="margin-top: 100px;">Pergi</p>
+            <div class="p-4 bg-teal-400 rounded-lg max-w-6xl mx-auto" style="background-image: url('gambar/aerial-view.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+                <div class="bg-white p-6 rounded-lg shadow-md max-w-3xl mx-auto overflow-hidden border-2 border-grey">
+                    <h2 class="text-2xl font-bold"><span id="port-awal"></span> → <span id="port-akhir"></span></h2>
+
+                    <script>
+                        const portAwal = localStorage.getItem('port-awal');
+                        const portAkhir = localStorage.getItem('port-akhir');
+                        document.getElementById('port-awal').textContent = portAwal;
+                        document.getElementById('port-akhir').textContent = portAkhir;
+                    </script>
+                    <script>
+                        const departureDate = new Date(localStorage.getItem('tanggalPelayaran'));
+                        const dayNames = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+                        const day = dayNames[departureDate.getDay()];
+                        const dateFormatted = departureDate.toLocaleDateString('id-ID', {
+                            day: 'numeric',
+                            month: 'long',
+                            year: 'numeric'
+                        });
+                        const adults = localStorage.getItem('orangDewasa') || '0'; // Default to '0' if null or undefined
+                        const children = localStorage.getItem('anakKecil') || '0'; // Default to '0' if null or undefined
+                    </script>
+                    <p class="text-base text-zinc-600 mt-2">
+                        <script>
+                            document.write(`${day}, ${dateFormatted} | (${adults}) Orang Dewasa | (${children}) Anak Kecil`);
+                        </script>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="max-w-md mx-auto bg-white dark:bg-zinc-800 rounded-xl overflow-hidden md:max-w-2xl p- rounded-lg shadow-md overflow-hidden border-1 border-grey" style="margin-top: 30px;">
+      <div class="p-8">
+        <div class="text-sm text-indigo-500 font-semibold" style="font-size: 20px;"></div>
+        <div class="mt-4">
+          <div class="mt-2 d-flex gap-2">
+            <button id="earlyMorningDeparture" class="btn btn-secondary" data-datetime="06:00" onclick="handleButtonTime(this);
+            document.getElementById('earlyMorningDeparture').setAttribute('data-time', '08:00');">06:00</button>
+            <button id="earlyMorninDeparture" class="btn btn-secondary" data-datetime="08:00" onclick="handleButtonTime(this);
+            document.getElementById('earlyMorninDeparture').setAttribute('data-time', '10:00');">08:00</button>
+        </div>
+        </div>
+
+        <div class="mt-2">
+          <div class="border-t border-zinc-200 dark:border-zinc-700 pt-4">
+              <h3 class="font-semibold text-lg mb-2">Detail Pergi</h3>
+              <div class="d-flex align-items-center mt-2">
+                  <div class="flex-grow-1">
+                      <div class="d-flex align-items-center gap-2">
+                          <span id="departure-time-1">06:00</span>
+                          <div class="flex-grow-1 bg-secondary" style="height: 5px;">
+                              <div id="animated-line-1" class="bg-primary" style="width: 0%; height: 100%;"></div>
+                          </div>
+                          <span id="arrival-time-1">08:00</span>
+                      </div>
+                      <div class="flex justify-between items-center mb-4">
+                          <p><span id="portawal"></span> → <span id="portakhir"></span></p>
+                          <script>
+                            document.getElementById('portawal').textContent = portAwal;
+                            document.getElementById('portakhir').textContent = portAkhir;
+                          </script>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+          <div style="margin-bottom: 30px;">
+            <h4 class="font-semibold text-lg mb-2">Dewasa Rp 150.000</h4>
+            <h4 class="font-semibold text-lg mb-2">Anak Kecil Rp 50.000</h4>
+          </div>
+          <div class="mt-4">
+            <button class="bg-yellow-400 text-white px-6 py-2 rounded-lg ml-auto" id="searchButton" onclick="handleButtonDetail()">Pilih</button>
+          </div>
+          </div>
+        </div>
+    </div>
+    </div>
+    </main>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>        
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts.js"></script>
+</body>
+
+</html>

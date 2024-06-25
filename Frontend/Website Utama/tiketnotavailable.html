@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="https://getbootstrap.com/docs/4.0/assets/img/favicons/favicon.ico">
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/jumbotron/">
+    <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/4.0/examples/jumbotron/jumbotron.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <html>
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <script src="https://cdn.tailwindcss.com"></script>
+        </head>
+        <body>
+            <main>
+            <p class="text-center text-zinc-900 dark:text-zinc-100 mb-4 text-3xl font-bold">Pilih jadwal pergi</p>
+            <div class="p-4 bg-teal-400 rounded-lg max-w-6xl mx-auto">
+                <div class="bg-white p-6 rounded-lg shadow-md max-w-3xl mx-auto">
+                    <h2 class="text-2xl font-bold"><span id="port-awal"></span> → <span id="port-akhir"></span></h2>
+
+                    <script>
+                        const portAwal = localStorage.getItem('port-awal');
+                        const portAkhir = localStorage.getItem('port-akhir');
+                        document.getElementById('port-awal').textContent = portAwal;
+                        document.getElementById('port-akhir').textContent = portAkhir;
+                    </script>
+                    <script>
+                        const departureDate = new Date(localStorage.getItem('tanggalPelayaran'));
+                        const dayNames = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+                        const day = dayNames[departureDate.getDay()];
+                        const dateFormatted = departureDate.toLocaleDateString('id-ID', {
+                            day: 'numeric',
+                            month: 'long',
+                            year: 'numeric'
+                        });
+                        const adults = localStorage.getItem('orangDewasa') || '0'; // Default to '0' if null or undefined
+                        const children = localStorage.getItem('anakKecil') || '0'; // Default to '0' if null or undefined
+                    </script>
+                    <p class="text-base text-zinc-600 mt-2">
+                        <script>
+                            document.write(`${day}, ${dateFormatted} | (${adults}) Orang Dewasa | (${children}) Anak Kecil`);
+                        </script>
+                    </p>
+                </div>
+            </div>
+          <div class="flex flex-col items-center justify-center min-h-screen bg-zinc-100 dark:bg-zinc-900 p-4">
+        <div class="bg-white dark:bg-zinc-800 rounded-lg shadow-lg p-6 text-center max-w-md mx-auto">
+          <img src="notfound.png" alt="Traveler illustration" class="mx-auto mb-4" width="300px;" heoght="200px;">
+          <h2 class="text-xl font-semibold text-zinc-800 dark:text-zinc-200 mb-2">Penerbangan yang kamu cari nggak ada, nih</h2>
+          <p class="text-zinc-600 dark:text-zinc-400 mb-4" style="font-size:20px;">Ayo coba ganti tanggal atau destinasi lainnya untuk menemukan perjalanan seru.</p>
+          <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Ubah Pencarian</button>
+        </div>
+      </div>
+        </main>                                                                                                                                                                 
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <script src="https://getbootstrap.com/docs/4.0/assets/js/vendor/popper.min.js"></script>
+        <script src="https://getbootstrap.com/docs/4.0/dist/js/bootstrap.min.js"></script>
+        <script src="scripts.js"></script>
+        </body>
+
+        </html>
+
+           
+
