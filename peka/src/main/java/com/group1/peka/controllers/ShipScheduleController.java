@@ -101,8 +101,7 @@ public class ShipScheduleController {
                     departureDateTime, 
                     arrivalDateTime, 
                     adultPrice, 
-                    childPrice
-                );
+                    childPrice);
 
                 responseData.setStatus(true);
                 responseData.setPayload(shipSchedule);
@@ -199,8 +198,7 @@ public class ShipScheduleController {
                     departureDateTime, 
                     arrivalDateTime, 
                     adultPrice, 
-                    childPrice
-                );
+                    childPrice);
 
                 responseData.setStatus(true);
                 responseData.setPayload(shipSchedule);
@@ -242,7 +240,7 @@ public class ShipScheduleController {
         responseData.getMessages().add("The ship schedule with ID " + shipScheduleID + " is successfully deleted");
 
         return ResponseEntity.ok(responseData);
-}
+    }
 }
         
    

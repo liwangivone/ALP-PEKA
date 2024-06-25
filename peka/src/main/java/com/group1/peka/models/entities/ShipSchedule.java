@@ -48,8 +48,8 @@ public class ShipSchedule {
     private int adultPrice;
 
     @Column(name = "child_price")
-    private int childPrice;    
-
+    private int childPrice;
+    
 
     public ShipSchedule(int shipScheduleID, Ship ship, Origin origin, Destination destination, LocalDateTime departureTime, LocalDateTime arrivalTime, int adultPrice, int childPrice) {
         this.shipScheduleID = shipScheduleID;
@@ -61,4 +61,9 @@ public class ShipSchedule {
         this.adultPrice = adultPrice;
         this.childPrice = childPrice;
     }
+
+    
+    
+
+
 }
