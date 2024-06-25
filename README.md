@@ -27,6 +27,35 @@ Proyek ini berisi halaman website untuk pemesanan kapal dari kota Makassar ke pu
    - Akun admin sudah terdaftar di backend.
    - Admin dapat keluar dari akunnya apabila sudah selesai.
 
+# Instalasi
+
+1. Clone the repo
+    ```bash
+    git clone https://github.com/liwangivone/ALP-PEKA.git
+    ```
+
+2. Navigate to the project directory
+    ```bash
+    cd ALP-PEKA
+    ```
+
+3. Install dependencies
+    ```bash
+    npm install
+    ```
+
+# Mulai
+
+1. Mulai server pengembangan
+    ```bash
+    npm start
+    ```
+
+2. Buka browser Anda dan navigasikan ke [http://localhost:3000](http://localhost:3000).
+
+3. Masuk sebagai user atau admin untuk menggunakan fitur-fitur yang sudah Kami sediakan.
+
+
 ## Status Proyek
 
 Saat ini, proyek sudah mencapai 80% penyelesaian dengan rencana perubahan pada desain navbar dan halaman-halaman lain yang masih kurang proper untuk website ini. Kami juga akan menambahkan fungsionalitas berdasarkan masukan dari user test pada teman sebaya kami.
