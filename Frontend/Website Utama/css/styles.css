@@ -1,0 +1,173 @@
+body {
+    background-image: url('gambar/beach.png');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    font-family: 'Poppins', sans-serif;
+}
+
+.btn-custom-radius {
+    border-radius: 15px;
+}
+
+.custom-button {
+    height: 100px;
+    /* Adjust the height as needed */
+    color: black;
+    font-size: 2rem;
+    /* Increase the font size if needed */
+}
+
+.custom-navbar {
+    transition: background-color 0.3s ease;
+    /* Transisi halus untuk perubahan warna */
+    position: relative;
+}
+
+.custom-navbar .nav-link {
+    color: black;
+    /* Warna teks link navbar */
+}
+
+.custom-navbar .nav-link:hover {
+    color: rgba(0, 0, 0, 0.7);
+    /* Warna teks link saat hover */
+}
+
+.custom-navbar .navbar-brand img {
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
+    /* Bayangan halus di logo */
+}
+
+.custom-navbar .auth-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.custom-navbar::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background-color: transparent;
+}
+
+.custom-navbar .container::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 76%;
+    /* Adjust as necessary */
+    height: 2px;
+    background-color: white;
+    transform: translateY(50%);
+}
+
+
+/* Responsive adjustments */
+
+@media (max-width: 767.98px) {
+    .custom-navbar {
+        background-color: rgba(255, 255, 255, 0.9);
+        /* Background sedikit kurang transparan di layar kecil */
+    }
+}
+
+.custom-radius .form-control {
+    border-radius: 10px;
+}
+
+.custom-border {
+    border: 15px solid white;
+    border-radius: 20px;
+    /* Anda dapat mengubah ukuran border di sini */
+}
+
+.form-label-detail {
+    font-weight: bold;
+}
+
+.form-control {
+    border-radius: 0.25rem;
+}
+
+.modal-header {
+    border-bottom: none;
+    /* Hilangkan border-bottom pada modal-header */
+}
+
+.modal-footer {
+    width: 100%;
+}
+
+h1 {
+    font-size: 64px;
+    font-weight: bold;
+}
+
+p {
+    font-size: 32px;
+}
+
+.custom-navbar .auth-buttons {
+    margin-left: 30px;
+    /* Tambahkan jarak sesuai kebutuhan */
+}
+
+.custom-navbar .btn-custom-radius {
+    margin-right: 10px;
+    /* Tambahkan jarak antara tombol */
+}
+
+
+
+.btn-active {
+    background-color: #ffc107 !important;
+    color: white !important;
+  }
+
+  @keyframes growWidth {
+    from {
+      width: 0%;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  .line-animate {
+    animation: growWidth 2s forwards;
+  }
+
+  .sticky-top {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+    z-index: 1020; /* Ensure it is above other content */
+    background-color: white;
+  }
+
+  .rounded-bg {
+    border-radius: 15px; /* Adjust this value for more or less rounded corners */
+  }
+
+  .payment-section, .checkModal{
+    position: fixed;
+    top: 0;
+    right: -100%;
+    height: 100%;
+    width: 40%;
+    background-color: white;
+    z-index: 1050;
+    transition: right 0.3s ease-in-out;
+    padding: 2rem;
+  }
+
+  .payment-section.open, .checkModal.open{
+    right: 0;
+  }

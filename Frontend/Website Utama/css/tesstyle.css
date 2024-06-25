@@ -1,0 +1,89 @@
+body {
+  font-family: 'Poppins', sans-serif;
+}
+  
+  
+  .btn-active {
+      background-color: #ffc107 !important;
+      color: white !important;
+  }
+
+  @keyframes growWidth {
+    from {
+      width: 0%;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  .line-animate {
+    animation: growWidth 2s forwards;
+  }
+
+  .sticky-top {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+    z-index: 1020; /* Ensure it is above other content */
+    background-color: white;
+  }
+
+  .rounded-bg {
+    border-radius: 15px; /* Adjust this value for more or less rounded corners */
+  }
+
+  .payment-section, .show-detail, .checkModal {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    height: 100%;
+    width: 40%;
+    background-color: white;
+    z-index: 1050;
+    transition: right 0.3s ease-in-out;
+    padding: 2rem;
+  }
+
+  .payment-section.open , .show-detail.open, .checkModal.open{
+    right: 0;
+  }
+
+  .border-box {
+    width: 500px; /* Anda dapat menyesuaikan lebar sesuai kebutuhan */
+    height: 150px; /* Anda dapat menyesuaikan tinggi sesuai kebutuhan */
+    border: 2px solid black;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .border-box::before {
+    content: "Pesan";
+    color: red;
+    font-size: 24px;
+    position: absolute;
+    top: -15px;
+    left: 45px; /* Menggeser teks ke kanan */
+    background-color: white;
+    padding: 0 5px;
+  }
+
+  .full-width-header {
+    width: 100%;
+    margin: 0;
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+  }
+
+  .logo-small {
+    width: 100px;
+    height: auto;
+  }
+
+  .collapse {
+    visibility: visible !important;
+  }
